@@ -1,2 +1,2 @@
 dev:
-	export FLASK_APP=webapp.py; flask run;
+	export FLASK_ENV=development; export FLASK_APP=webapp.py; flask run;
