@@ -6,6 +6,7 @@ from flask import Flask
 from stock_portfolio.database import init_db
 from stock_portfolio.database import close_db
 from stock_portfolio.views.auth import auth_bp
+from stock_portfolio.views.portfolio import portfolio_bp
 
 def create_app():
     # Create the flask instance and configure the app's secret key and database
@@ -34,5 +35,6 @@ def create_app():
 
     # Registering blueprints
     app.register_blueprint(auth_bp)
+    app.register_blueprint(portfolio_bp)
 
     return app

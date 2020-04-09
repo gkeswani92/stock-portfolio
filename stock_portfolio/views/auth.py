@@ -83,7 +83,11 @@ def login():
             # can’t be tampered with.
             session.clear()
             session['user_id'] = user.id
-            return redirect(url_for('index'))
+
+            # The url_for() function generates the URL to a view based on a name
+            # and arguments. The name associated with a view is also called the
+            # endpoint, and by default it’s the same as the name of the view function.
+            return redirect(url_for('portfolio_bp.index'))
 
 
 @auth_bp.route('/logout')
