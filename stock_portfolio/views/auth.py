@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask import render_template
 from flask import request
 from werkzeug.exceptions import BadRequest
 from werkzeug.exceptions import InternalServerError
@@ -17,11 +18,13 @@ def register():
     # Case: When the register view is called with HTTP GET, we return
     # a form where the user can enter their username and password
     if request.method == 'GET':
-        pass
+        return render_template('auth/register.html')
 
     # Case: When the register view is called with HTTP POST, we try to
     # register them in the database
     else:
+        # request.form is a special type of dict mapping submitted form keys
+        # and values.
         username = request.form.get('username')
         password = request.form.get('password')
         if not username or not password:
