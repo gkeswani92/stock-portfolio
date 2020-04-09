@@ -3,8 +3,8 @@
 import os
 
 from flask import Flask
-from database import init_db_command
-from database import close_db
+from stock_portfolio.database import init_db_command
+from stock_portfolio.database import close_db
 
 def create_app():
     # Create the flask instance and configure the app's secret key and database
