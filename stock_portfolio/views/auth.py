@@ -39,3 +39,11 @@ def register():
             'status_code': 200,
             'username': username,
         }
+
+
+@auth_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('auth/login.html')
+    else:
+        pass
