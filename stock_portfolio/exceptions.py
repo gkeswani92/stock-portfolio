@@ -1,5 +1,3 @@
-
-
 class AppException(Exception):
     def to_dict(self):
         rv = self.payload or {}

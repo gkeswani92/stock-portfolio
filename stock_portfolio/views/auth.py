@@ -114,15 +114,3 @@ def handle_missing_credentials(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
-
-
-def login_required(view):
-    """Decorator that will ensure that a view can be only be accessed by
-    logged in users
-    """
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if not session.get('user_id'):
-            return redirect(url_for('auth.login'))
-        return view(**kwargs)
-    return wrapped_view

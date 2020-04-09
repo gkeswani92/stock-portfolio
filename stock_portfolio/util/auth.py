@@ -1,3 +1,6 @@
+from flask import redirect
+from flask import session
+from flask import url_for
 from werkzeug.security import check_password_hash
 
 from stock_portfolio.data_access.user import get_user
@@ -22,3 +25,15 @@ def validate_login_credentials(
         raise InvalidLoginCredentialsException('Invalid Login Credentials')
     else:
         return user
+
+
+def login_required(view):
+    """Decorator that will ensure that a view can be only be accessed by
+    logged in users
+    """
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if not session.get('user_id'):
+            return redirect(url_for('auth.login'))
+        return view(**kwargs)
+    return wrapped_view
