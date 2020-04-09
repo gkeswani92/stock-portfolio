@@ -44,7 +44,8 @@ def register():
 
         return {
             'status_code': 200,
-            'username': username,
+            'username': user.username,
+            'password': user.password,
         }
 
 

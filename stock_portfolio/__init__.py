@@ -3,7 +3,7 @@
 import os
 
 from flask import Flask
-from stock_portfolio.database import init_db_command
+from stock_portfolio.database import init_db
 from stock_portfolio.database import close_db
 from stock_portfolio.views.auth import auth_bp
 
@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'stock_portfolio.sqlite'),
     )
 
     # Load the instance config, if it exists
@@ -26,14 +26,11 @@ def create_app():
     except OSError:
         pass
 
+    init_db()
+
     # app.teardown_appcontext() tells Flask to call that function when cleaning
     # up after returning the response.
     app.teardown_appcontext(close_db)
-
-    # app.cli.add_command() adds a new command that can be called with the
-    # flask command.
-    # Example: >> flask init-db
-    app.cli.add_command(init_db_command)
 
     # Registering blueprints
     app.register_blueprint(auth_bp)
