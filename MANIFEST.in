@@ -1,0 +1,4 @@
+include stock_portfolio/schema.sql
+graft stock_portfolio/static
+graft stock_portfolio/templates
+global-exclude *.pyc

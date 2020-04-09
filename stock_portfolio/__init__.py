@@ -1,5 +1,4 @@
 # coding: utf-8
-
 import os
 
 from flask import Flask
@@ -35,6 +34,6 @@ def create_app():
 
     # Registering blueprints
     app.register_blueprint(auth_bp)
-    app.register_blueprint(portfolio_bp)
+    app.register_blueprint(auth_bp)
 
     return app
