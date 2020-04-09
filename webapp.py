@@ -5,6 +5,7 @@ import os
 from flask import Flask
 from stock_portfolio.database import init_db_command
 from stock_portfolio.database import close_db
+from stock_portfolio.views.auth import auth_bp
 
 def create_app():
     # Create the flask instance and configure the app's secret key and database
@@ -33,5 +34,8 @@ def create_app():
     # flask command.
     # Example: >> flask init-db
     app.cli.add_command(init_db_command)
+
+    # Registering blueprints
+    app.register_blueprint(auth_bp)
 
     return app
