@@ -2,10 +2,7 @@ from werkzeug.security import check_password_hash
 
 from stock_portfolio.data_access.user import get_user
 from stock_portfolio.data_models.user import User
-
-
-class InvalidLoginCredentialsException(Exception):
-    pass
+from stock_portfolio.exceptions import InvalidLoginCredentialsException
 
 
 def validate_login_credentials(
@@ -22,6 +19,6 @@ def validate_login_credentials(
         user.password,
         password,
     ):
-        raise InvalidLoginCredentialsException
+        raise InvalidLoginCredentialsException('Invalid Login Credentials')
     else:
         return user

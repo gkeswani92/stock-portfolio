@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import flash
+from flask import jsonify
 from flask import render_template
 from flask import redirect
 from flask import request
@@ -11,7 +12,8 @@ from werkzeug.exceptions import InternalServerError
 from stock_portfolio.data_access.user import register_user
 from stock_portfolio.data_access.user import register_user
 from stock_portfolio.data_access.user import UserAlreadyExistsException
-from stock_portfolio.util.auth import InvalidLoginCredentialsException
+from stock_portfolio.exceptions import InvalidLoginCredentialsException
+from stock_portfolio.exceptions import MissingCredentialsException
 from stock_portfolio.util.auth import validate_login_credentials
 
 # Defining a blue print for all URLs that begin with /auth.
@@ -65,8 +67,12 @@ def login():
     else:
         username = request.form.get('username')
         password = request.form.get('password')
+
+        # Raise a MissingCredentialsException if the username or password are
+        # missing. This maps to a 400 Bad Request and results in a JSON response
+        # because of the error handler defined below
         if not username or not password:
-            raise BadRequest('Username and password are required fields')
+            raise MissingCredentialsException('Username and password are required fields')
 
         # Retrieve the user's information and set the user id in the
         # session if the login credentials are correct
@@ -94,6 +100,20 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+
+@auth_bp.errorhandler(InvalidLoginCredentialsException)
+def handle_invalid_login_credentials(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
+
+@auth_bp.errorhandler(MissingCredentialsException)
+def handle_missing_credentials(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 
 def login_required(view):
