@@ -84,3 +84,9 @@ def login():
             session.clear()
             session['user_id'] = user.id
             return redirect(url_for('index'))
+
+
+@auth_bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
