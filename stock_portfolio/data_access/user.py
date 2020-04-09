@@ -1,6 +1,12 @@
+from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
+
 from stock_portfolio.data_models.user import User
 from stock_portfolio.database import db_session
+
+
+class UserAlreadyExistsException(Exception):
+    pass
 
 
 def register_user(
@@ -12,9 +18,13 @@ def register_user(
         username=username,
         password=generate_password_hash(password),
     )
-    db_session.add(user)
-    db_session.commit()
-    return user
+    try:
+        db_session.add(user)
+        db_session.commit()
+    except IntegrityError as e:
+        raise UserAlreadyExistsException from e
+    else:
+        return user
 
 def get_user(
     username: str,

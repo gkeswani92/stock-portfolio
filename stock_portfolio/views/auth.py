@@ -10,6 +10,7 @@ from werkzeug.exceptions import InternalServerError
 
 from stock_portfolio.data_access.user import register_user
 from stock_portfolio.data_access.user import register_user
+from stock_portfolio.data_access.user import UserAlreadyExistsException
 from stock_portfolio.util.auth import InvalidLoginCredentialsException
 from stock_portfolio.util.auth import validate_login_credentials
 
@@ -37,16 +38,24 @@ def register():
         if not username or not password:
             raise BadRequest('Username and password are required fields')
 
-        # Attempt to register the user
-        user = register_user(username, password)
-        if not user:
-            raise InternalServerError(f'Could not register {username}')
+        # Attempt to register the user and return the appropriate response
+        # to the client
+        try:
+            user = register_user(username, password)
+        except UserAlreadyExistsException:
+            return {
+                'status_code': 200,
+                'error': 'Username has already been taken'
+            }
+        else:
+            if not user:
+                raise InternalServerError(f'Could not register {username}')
 
-        return {
-            'status_code': 200,
-            'username': user.username,
-            'password': user.password,
-        }
+            return {
+                'status_code': 200,
+                'username': user.username,
+                'password': user.password,
+            }
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
