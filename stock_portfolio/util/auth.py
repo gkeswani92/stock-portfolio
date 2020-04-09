@@ -1,6 +1,7 @@
 from werkzeug.security import check_password_hash
 
 from stock_portfolio.data_access.user import get_user
+from stock_portfolio.data_models.user import User
 
 
 class InvalidLoginCredentialsException(Exception):
@@ -13,9 +14,14 @@ def validate_login_credentials(
 ):
     # Retrieve the user's information and set the user id in the
     # session if the login credentials are correct
-    user = get_user(username, password)
-    if not user.username == username or not check_password_hash(
+    # check_password_hash() hashes the submitted password in the same
+    # way as the stored hash and securely compares them. If they match,
+    # the password is valid.
+    user: User = get_user(username)
+    if not user or not check_password_hash(
         user.password,
         password,
     ):
         raise InvalidLoginCredentialsException
+    else:
+        return user

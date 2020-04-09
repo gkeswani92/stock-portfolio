@@ -26,12 +26,8 @@ def register_user(
     else:
         return user
 
-def get_user(
-    username: str,
-    password: str,
-):
+def get_user(username: str):
     """Get user information from the database"""
-    return User(
-        username=username,
-        password=password,
-    )
+    return User.query.filter(
+        User.username == username,
+    ).one_or_none()

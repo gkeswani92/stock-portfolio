@@ -47,15 +47,15 @@ def register():
                 'status_code': 200,
                 'error': 'Username has already been taken'
             }
-        else:
-            if not user:
-                raise InternalServerError(f'Could not register {username}')
 
-            return {
-                'status_code': 200,
-                'username': user.username,
-                'password': user.password,
-            }
+        if not user:
+            raise InternalServerError(f'Could not register {username}')
+
+        return {
+            'status_code': 200,
+            'username': user.username,
+            'password': user.password,
+        }
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -74,8 +74,13 @@ def login():
             user = validate_login_credentials(username, password)
         except InvalidLoginCredentialsException:
             flash('Invalid Login Credentials')
-            return
+            return render_template('auth/login.html')
         else:
+            # session is a dict that stores data across requests. When validation
+            # succeeds, the user’s id is stored in a new session. The data is stored
+            # in a cookie that is sent to the browser, and the browser then sends it
+            # back with subsequent requests. Flask securely signs the data so that it
+            # can’t be tampered with.
             session.clear()
-            session.user['user_id'] = user.id
+            session['user_id'] = user.id
             return redirect(url_for('index'))
