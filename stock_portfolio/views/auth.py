@@ -10,7 +10,6 @@ from werkzeug.exceptions import BadRequest
 from werkzeug.exceptions import InternalServerError
 
 from stock_portfolio.data_access.user import register_user
-from stock_portfolio.data_access.user import register_user
 from stock_portfolio.data_access.user import UserAlreadyExistsException
 from stock_portfolio.exceptions import InvalidLoginCredentialsException
 from stock_portfolio.exceptions import MissingCredentialsException
