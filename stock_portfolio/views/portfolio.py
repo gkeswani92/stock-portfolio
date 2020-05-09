@@ -16,7 +16,7 @@ SUPPORTED_PROVIDERS: Set[str] = {
 portfolio_bp = Blueprint('portfolio_bp', __name__, url_prefix='/portfolio')
 
 
-@portfolio_bp.route('/')
+@portfolio_bp.route('/home')
 def index():
     return render_template(
         'portfolio/home.html',
@@ -29,10 +29,10 @@ def index():
 # to this controller
 @portfolio_bp.route('/<string:provider>')
 def portfolio(provider: str):
-    if provider not in SUPPORTED_PROVIDERS:
+    if provider.capitalize() not in SUPPORTED_PROVIDERS:
         abort(404)
 
     return render_template(
         'portfolio/home.html',
-        provider=provider.capitalize(),
+        provider=provider,
     )
