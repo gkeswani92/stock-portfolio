@@ -11,7 +11,16 @@
   <ul>
     {% for provider in supported_providers %}
       <li>
-          {{provider}}
+          <!-- The anchor tag's link is pointing to the URL for the provider_porfolio
+          route in the portfolio_bp blueprint and we're passing in all the parameters
+          that are expected by that API
+
+          The jinja expression will be evaluated and rendered into the HTML page before
+          the page returns to the browser
+          -->
+          <a href="{{ url_for('portfolio_bp.provider_portfolio', provider=provider) }}">
+            {{provider}}
+          </a>
       </li>
     {% endfor %}
   </ul>

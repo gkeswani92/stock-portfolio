@@ -28,7 +28,8 @@ def index():
 # /portfolio and all routes like /portfolio/1, /portfolio/2 should be routed
 # to this controller
 @portfolio_bp.route('/<string:provider>')
-def portfolio(provider: str):
+def provider_portfolio(provider: str):
+    print(f"Calling {provider}")
     if provider.capitalize() not in SUPPORTED_PROVIDERS:
         abort(404)
 
