@@ -11,4 +11,4 @@ portfolio_bp = Blueprint('portfolio_bp', __name__, url_prefix='/portfolio')
 
 @portfolio_bp.route('/')
 def index():
-    return render_template('portfolio/index.html')
+    return render_template('portfolio/home.html')
