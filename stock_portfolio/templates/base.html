@@ -17,5 +17,10 @@
   <header>
     {% block header %}{% endblock %}
   </header>
+
+  <!-- These blocks mark the parts that can be filled in by the children of the
+  base template i.e. templates that extend base.html -->
+  <!-- Blocks must be defined in the parent template and overriden in the child
+  template -->
   {% block content %}{% endblock %}
 </section>
