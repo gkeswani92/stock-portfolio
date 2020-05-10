@@ -12,6 +12,7 @@ from stock_portfolio.data_access.user import register_user
 from stock_portfolio.data_access.user import UserAlreadyExistsException
 from stock_portfolio.exceptions import InvalidLoginCredentialsException
 from stock_portfolio.exceptions import MissingCredentialsException
+from stock_portfolio.forms.register import RegisterUserForm
 from stock_portfolio.util.auth import validate_login_credentials
 
 # Defining a blue print for all URLs that begin with /auth.
@@ -24,18 +25,21 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 # By default, all view controllers support the GET method
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
+    form = RegisterUserForm()
     # Case: When the register view is called with HTTP GET, we return
-    # a form where the user can enter their username and password
+    # a form where the user can enter their username and password. When
+    # using WT forms, we can pass in the form object that we want to render
+    # on the UI
     if request.method == 'GET':
-        return render_template('auth/register.html')
+        return render_template('auth/register.html', form=form)
 
     # Case: When the register view is called with HTTP POST, we try to
     # register them in the database
     else:
-        # request.form is a special type of dict mapping submitted form keys
-        # and values.
-        username = request.form.get('username')
-        password = request.form.get('password')
+        # We can access the data submitted into a WTForm by accessing it via the
+        # form object
+        username = form.username.data
+        password = form.password.data
         if not username or not password:
             abort(400)
 

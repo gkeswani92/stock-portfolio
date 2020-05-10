@@ -14,13 +14,15 @@
       <!-- An important thing to note about forms is that the POST request will
       be sent back to the same route that rendered the HTML for the form -->
       <form method="post">
-        <label for="username">Username</label>
-        <input name="username" id="username" required>
+        {{ form.hidden_tag() }}
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
+        {{ form.username.label }}
+        {{ form.username }}
 
-        <input type="submit" value="Register">
+        {{ form.password.label }}
+        {{ form.password }}
+
+        {{ form.submit }}
       </form>
     {% endblock %}
   </body>
