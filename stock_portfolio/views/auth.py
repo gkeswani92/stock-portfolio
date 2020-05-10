@@ -47,6 +47,11 @@ def register():
             return render_template('auth/register.html')
         else:
             session['user_id'] = user.id
+
+            # Create a flash message that will be accessible when we redirect
+            # to the portfolio index page
+            flash('Registration Successful', 'success')
+
             return redirect(url_for('portfolio_bp.index'))
 
 
