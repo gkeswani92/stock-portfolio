@@ -21,6 +21,7 @@ from stock_portfolio.util.auth import validate_login_credentials
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
+# By default, all view controllers support the GET method
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     # Case: When the register view is called with HTTP GET, we return
@@ -41,10 +42,11 @@ def register():
         # Attempt to register the user and return the appropriate response
         # to the client
         try:
-            register_user(username, password)
+            user = register_user(username, password)
         except UserAlreadyExistsException:
             return render_template('auth/register.html')
         else:
+            session['user_id'] = user.id
             return redirect(url_for('portfolio_bp.index'))
 
 
