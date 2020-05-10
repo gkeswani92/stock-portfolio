@@ -1,3 +1,4 @@
+from flask import abort
 from flask import Blueprint
 from flask import flash
 from flask import jsonify
@@ -6,8 +7,6 @@ from flask import redirect
 from flask import request
 from flask import session
 from flask import url_for
-from werkzeug.exceptions import BadRequest
-from werkzeug.exceptions import InternalServerError
 
 from stock_portfolio.data_access.user import register_user
 from stock_portfolio.data_access.user import UserAlreadyExistsException
@@ -37,26 +36,16 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         if not username or not password:
-            raise BadRequest('Username and password are required fields')
+            abort(400)
 
         # Attempt to register the user and return the appropriate response
         # to the client
         try:
-            user = register_user(username, password)
+            register_user(username, password)
         except UserAlreadyExistsException:
-            return {
-                'status_code': 200,
-                'error': 'Username has already been taken'
-            }
-
-        if not user:
-            raise InternalServerError(f'Could not register {username}')
-
-        return {
-            'status_code': 200,
-            'username': user.username,
-            'password': user.password,
-        }
+            return render_template('auth/register.html')
+        else:
+            return redirect(url_for('portfolio_bp.index'))
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
