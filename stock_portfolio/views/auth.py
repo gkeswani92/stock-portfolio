@@ -98,7 +98,7 @@ def login():
 @auth_bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('index_bp.index'))
 
 
 @auth_bp.errorhandler(InvalidLoginCredentialsException)

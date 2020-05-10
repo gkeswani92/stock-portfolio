@@ -26,8 +26,16 @@ def register_user(
     else:
         return user
 
+
 def get_user(username: str):
     """Get user information from the database"""
     return User.query.filter(
         User.username == username,
+    ).one_or_none()
+
+
+def get_user_by_id(user_id: int) -> User:
+    """Get user information by user_id from the database"""
+    return User.query.filter(
+        User.id == user_id,
     ).one_or_none()

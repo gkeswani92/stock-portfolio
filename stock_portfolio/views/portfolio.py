@@ -3,6 +3,11 @@ from typing import Set
 from flask import abort
 from flask import Blueprint
 from flask import render_template
+from flask import redirect
+from flask import session
+from flask import url_for
+
+from stock_portfolio.data_access.user import get_user_by_id
 
 SUPPORTED_PROVIDERS: Set[str] = {
     'Fidelity',
@@ -18,9 +23,22 @@ portfolio_bp = Blueprint('portfolio_bp', __name__, url_prefix='/portfolio')
 
 @portfolio_bp.route('/home')
 def index():
+    user_id = session.get('user_id')
+
+    # If a logged out user tries to access this page, we should re-direct them
+    # to the login page
+    if not user_id:
+        # The url_for() function generates the URL to a view based on a name
+        # and arguments. The name associated with a view is also called the
+        # endpoint, and by default it’s the same as the name of the view
+        # function
+        return redirect(url_for('auth.login'))
+
+    user = get_user_by_id(user_id)
     return render_template(
         'portfolio/home.html',
         supported_providers=SUPPORTED_PROVIDERS,
+        username=user.username,
     )
 
 
