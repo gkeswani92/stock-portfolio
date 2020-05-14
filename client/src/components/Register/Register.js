@@ -77,15 +77,20 @@ export default class Register extends Component {
 
             <div class="form-group col-auto">
                 <label htmlFor="username" class="col-form-label-lg">Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChange}
-                    placeholder="Enter Username"
-                    class="form-control"
-                    required
-                />
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                    </div>
+                    <input
+                        type="text"
+                        name="username"
+                        value={this.state.username}
+                        onChange={this.onChange}
+                        placeholder="Enter Username"
+                        class="form-control"
+                        required
+                    />
+                </div>
             </div>
 
             <div class="form-group col-auto">
