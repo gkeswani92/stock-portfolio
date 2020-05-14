@@ -1,0 +1,12 @@
+@media (min-width: 768px) {
+    .container-xs {
+        max-width: 570px;
+    }
+}
+
+.required {
+    color: red;
+    font-weight: 700;
+    border: 0!important;
+    text-decoration: none
+}
