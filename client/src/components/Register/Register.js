@@ -41,46 +41,80 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div>
+      <div class="container-fluid">
+        <h1 class="mb-1 text-center">Sign up</h1>
+        <p class="fs-14 text-gray text-center mb-5">
+            Track your portfolio and see what your friends are up to!
+        </p>
         <form onSubmit={this.onSubmit}>
-          <label htmlFor="first_name">First Name</label>
-          <input
-            type="text"
-            name="first_name"
-            value={this.state.first_name}
-            onChange={this.onChange}
-            placeholder="Enter First Name"
-          />
+            <div class="form-row col-auto">
+                <div class="form-group col-md-6">
+                    <label htmlFor="first_name" class="col-form-label-lg">First Name</label>
+                    <input
+                        type="text"
+                        name="first_name"
+                        value={this.state.first_name}
+                        onChange={this.onChange}
+                        placeholder="Enter First Name"
+                        class="form-control"
+                        required
+                    />
+                </div>
 
-          <label htmlFor="last_name">Last Name</label>
-          <input
-            type="text"
-            name="last_name"
-            value={this.state.last_name}
-            onChange={this.onChange}
-            placeholder="Enter Last Name"
-          />
+                <div class="form-group col-md-6">
+                    <label htmlFor="last_name" class="col-form-label-lg">Last Name</label>
+                    <input
+                        type="text"
+                        name="last_name"
+                        value={this.state.last_name}
+                        onChange={this.onChange}
+                        placeholder="Enter Last Name"
+                        class="form-control"
+                        required
+                    />
+                </div>
+            </div>
 
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            value={this.state.username}
-            onChange={this.onChange}
-            placeholder="Enter Username"
-          />
+            <div class="form-group col-auto">
+                <label htmlFor="username" class="col-form-label-lg">Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.onChange}
+                    placeholder="Enter Username"
+                    class="form-control"
+                    required
+                />
+            </div>
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.onChange}
-            placeholder="Enter Password"
-          />
+            <div class="form-group col-auto">
+                <label htmlFor="password" class="col-form-label-lg">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    placeholder="Enter Password"
+                    class="form-control"
+                    required
+                />
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                    Your password must be 8-20 characters long
+                </small>
+            </div>
 
-          <button type="submit">Register</button>
+            <div class="form-group col-auto">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
         </form>
+
+        <p class="text-gray-soft text-center small mb-2">
+            By clicking "Sign up" you agree to our <a href="https://themes.getbootstrap.com/terms">Terms of Service</a>.
+        </p>
+        <p class="text-gray-soft text-center small mb-2">
+            Already have an account? <a href="https://themes.getbootstrap.com/signin/">Sign in</a>
+        </p>
       </div>
     );
   }
