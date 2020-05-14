@@ -1,0 +1,13 @@
+
+.navbar {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #E5E9EF;
+    align-items: center;
+}
+
+.nav-link {
+    color: #838E95;
+    font-size: 18px;
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
