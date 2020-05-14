@@ -23,40 +23,30 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 # By default, all view controllers support the GET method
-@auth_bp.route('/register', methods=['GET', 'POST'])
+@auth_bp.route('/register', methods=['POST'])
 def register():
-    form = RegisterUserForm()
-    # Case: When the register view is called with HTTP GET, we return
-    # a form where the user can enter their username and password. When
-    # using WT forms, we can pass in the form object that we want to render
-    # on the UI
-    if request.method == 'GET':
-        return render_template('auth/register.html', form=form)
-
     # Case: When the register view is called with HTTP POST, we try to
     # register them in the database
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    username = request.json['username']
+    password = request.json['password']
+    if not all([first_name, last_name, username, password]):
+        abort(400)
+
+    # Attempt to register the user and return the appropriate response
+    # to the client
+    try:
+        user = register_user(first_name, last_name, username, password)
+    except UserAlreadyExistsException:
+        abort(400)
     else:
-        # We can access the data submitted into a WTForm by accessing it via the
-        # form object
-        username = form.username.data
-        password = form.password.data
-        if not username or not password:
-            abort(400)
+        session['user_id'] = user.id
 
-        # Attempt to register the user and return the appropriate response
-        # to the client
-        try:
-            user = register_user(username, password)
-        except UserAlreadyExistsException:
-            return render_template('auth/register.html')
-        else:
-            session['user_id'] = user.id
-
-            # Create a flash message that will be accessible when we redirect
-            # to the portfolio index page
-            flash('Registration Successful', 'success')
-
-            return redirect(url_for('portfolio_bp.index'))
+        # Create a flash message that will be accessible when we redirect
+        # to the portfolio index page
+        flash('Registration Successful', 'success')
+        return {}
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
