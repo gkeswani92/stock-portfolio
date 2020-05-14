@@ -3,9 +3,9 @@ from flask import session
 from flask import url_for
 from werkzeug.security import check_password_hash
 
-from stock_portfolio.data_access.user import get_user
-from stock_portfolio.data_models.user import User
-from stock_portfolio.exceptions import InvalidLoginCredentialsException
+from server.data_access.user import get_user
+from server.data_models.user import User
+from server.exceptions import InvalidLoginCredentialsException
 
 
 def validate_login_credentials(

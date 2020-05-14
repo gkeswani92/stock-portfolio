@@ -7,7 +7,7 @@ from flask import redirect
 from flask import session
 from flask import url_for
 
-from stock_portfolio.data_access.user import get_user_by_id
+from server.data_access.user import get_user_by_id
 
 SUPPORTED_PROVIDERS: Set[str] = {
     'Fidelity',

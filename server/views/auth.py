@@ -8,12 +8,12 @@ from flask import request
 from flask import session
 from flask import url_for
 
-from stock_portfolio.data_access.user import register_user
-from stock_portfolio.data_access.user import UserAlreadyExistsException
-from stock_portfolio.exceptions import InvalidLoginCredentialsException
-from stock_portfolio.exceptions import MissingCredentialsException
-from stock_portfolio.forms.register import RegisterUserForm
-from stock_portfolio.util.auth import validate_login_credentials
+from server.data_access.user import register_user
+from server.data_access.user import UserAlreadyExistsException
+from server.exceptions import InvalidLoginCredentialsException
+from server.exceptions import MissingCredentialsException
+from server.forms.register import RegisterUserForm
+from server.util.auth import validate_login_credentials
 
 # Defining a blue print for all URLs that begin with /auth.
 # All views that are related to auth should be registered with

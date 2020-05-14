@@ -2,11 +2,11 @@
 import os
 
 from flask import Flask
-from stock_portfolio.database import init_db
-from stock_portfolio.database import close_db
-from stock_portfolio.views.auth import auth_bp
-from stock_portfolio.views.index import index_bp
-from stock_portfolio.views.portfolio import portfolio_bp
+from server.database import init_db
+from server.database import close_db
+from server.views.auth import auth_bp
+from server.views.index import index_bp
+from server.views.portfolio import portfolio_bp
 
 
 def create_app():

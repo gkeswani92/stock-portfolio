@@ -1,7 +1,7 @@
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
-from stock_portfolio.database import Base
+from server.database import Base
 
 
 # To define your models, just subclass the Base class that was

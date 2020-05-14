@@ -1,8 +1,8 @@
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 
-from stock_portfolio.data_models.user import User
-from stock_portfolio.database import db_session
+from server.data_models.user import User
+from server.database import db_session
 
 
 class UserAlreadyExistsException(Exception):

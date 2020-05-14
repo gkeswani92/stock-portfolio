@@ -1,4 +1,4 @@
-include stock_portfolio/schema.sql
-graft stock_portfolio/static
-graft stock_portfolio/templates
+include server/schema.sql
+graft server/static
+graft server/templates
 global-exclude *.pyc
