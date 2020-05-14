@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class Register extends Component {
   constructor() {
@@ -6,7 +7,7 @@ export default class Register extends Component {
     this.state = {
       first_name: "",
       last_name: "",
-      email: "",
+      username: "",
       password: "",
     };
 
@@ -24,7 +25,18 @@ export default class Register extends Component {
     // We are using preventDefault so as to block the default browser action
     // of making a GET request to the backend
     event.preventDefault()
-    console.log(this.state)
+
+    axios.post(
+        '/auth/register',
+        {
+            'first_name': this.state.first_name,
+            'last_name': this.state.last_name,
+            'username': this.state.username,
+            'password': this.state.password
+        }
+    ).then(response => {
+        console.log('Successfully registered ' + this.state.first_name)
+    })
   }
 
   render() {
@@ -49,13 +61,13 @@ export default class Register extends Component {
             placeholder="Enter Last Name"
           />
 
-          <label htmlFor="email">Email</label>
+          <label htmlFor="username">Username</label>
           <input
-            type="email"
-            name="email"
-            value={this.state.email}
+            type="text"
+            name="username"
+            value={this.state.username}
             onChange={this.onChange}
-            placeholder="Enter Email"
+            placeholder="Enter Username"
           />
 
           <label htmlFor="password">Password</label>
