@@ -10,3 +10,15 @@
     border: 0!important;
     text-decoration: none
 }
+
+.text-gray {
+    color: #8F9396 !important;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}

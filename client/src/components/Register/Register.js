@@ -45,7 +45,7 @@ export default class Register extends Component {
       <div class="container container-xs">
         <h2 class="mb-1 text-center">Sign up</h2>
         <p class="fs-14 text-gray text-center mb-5">
-            Track your portfolio and see what your friends are up to!
+            Track your portfolio and share recommendations with friends.
         </p>
         <form onSubmit={this.onSubmit}>
             <div class="form-row col-auto">
