@@ -5,6 +5,7 @@ from flask import jsonify
 from flask import render_template
 from flask import redirect
 from flask import request
+from flask import Response
 from flask import session
 from flask import url_for
 
@@ -12,7 +13,6 @@ from server.data_access.user import register_user
 from server.data_access.user import UserAlreadyExistsException
 from server.exceptions import InvalidLoginCredentialsException
 from server.exceptions import MissingCredentialsException
-from server.forms.register import RegisterUserForm
 from server.util.auth import validate_login_credentials
 
 # Defining a blue print for all URLs that begin with /auth.
@@ -39,14 +39,17 @@ def register():
     try:
         user = register_user(first_name, last_name, username, password)
     except UserAlreadyExistsException:
-        abort(400)
+        response = jsonify({'message': 'USER_ALREADY_EXISTS'})
+        response.status_code = 400
+        return response
     else:
         session['user_id'] = user.id
 
         # Create a flash message that will be accessible when we redirect
         # to the portfolio index page
         flash('Registration Successful', 'success')
-        return {}
+        response.status_code = 200
+        return response
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
