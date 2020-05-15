@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 engine = create_engine(
-    'sqlite:////tmp/stock_portfolio.db',
+    'sqlite:////tmp/stock_tracker.db',
     convert_unicode=True,
 )
 

@@ -14,7 +14,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'stock_portfolio.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'stock_tracker.sqlite'),
     )
 
     # Load the instance config, if it exists

@@ -9,10 +9,14 @@ from server.database import Base
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
+    first_name = Column(String(50))
+    last_name = Column(String(50))
     username = Column(String(50), unique=True)
-    password = Column(String(120), unique=True)
+    password = Column(String(120))
 
-    def __init__(self, username=None, password=None):
+    def __init__(self, first_name=None, last_name=None, username=None, password=None):
+        self.first_name = first_name
+        self.last_name = last_name
         self.username = username
         self.password = password
 

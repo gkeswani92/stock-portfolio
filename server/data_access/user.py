@@ -10,11 +10,15 @@ class UserAlreadyExistsException(Exception):
 
 
 def register_user(
+    first_name: str,
+    last_name: str,
     username: str,
     password: str,
 ):
     """Store user information in the database"""
     user = User(
+        first_name=first_name,
+        last_name=last_name,
         username=username,
         password=generate_password_hash(password),
     )
