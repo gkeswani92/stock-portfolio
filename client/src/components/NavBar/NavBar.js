@@ -6,8 +6,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <div>
-        <nav class="nav navbar justify-content-end navbar-expand-lg navbar-light">
-          <div class="container">
+        <nav class="nav navbar justify-content-left navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">
               <img
                 src="/docs/4.1/assets/brand/bootstrap-solid.svg"
@@ -17,18 +16,17 @@ export default class NavBar extends Component {
               />
               Portfolio Tracker
             </a>
-            <Link to="/home" class="nav-item nav-link text-secondary">
+            <Link to="/home" class="nav-item nav-link text-light">
               Home
             </Link>
 
-            <Link to="/login" class="nav-item nav-link text-secondary">
+            <Link to="/login" class="nav-item nav-link text-light">
               Login
             </Link>
 
-            <Link to="/register" class="nav-item nav-link text-secondary active">
+            <Link to="/register" class="nav-item nav-link text-light active">
               Register
             </Link>
-          </div>
         </nav>
       </div>
     );

@@ -22,3 +22,11 @@ p {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
+
+.signup_wrapper {
+    padding-top: 65px;
+}
+
+.col-form-label-sm {
+    margin-bottom: .1rem;
+}
