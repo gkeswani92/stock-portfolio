@@ -30,3 +30,7 @@ p {
 .col-form-label-sm {
     margin-bottom: .1rem;
 }
+
+.alert {
+    font-size: .875rem;
+}

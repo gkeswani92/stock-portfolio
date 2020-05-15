@@ -10,6 +10,7 @@ export default class Register extends Component {
       last_name: "",
       username: "",
       password: "",
+      error: "",
     };
 
     this.onChange = this.onChange.bind(this);
@@ -27,15 +28,30 @@ export default class Register extends Component {
     // of making a GET request to the backend
     event.preventDefault();
 
-    axios
+    var isRegistered = axios
       .post("/auth/register", {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         username: this.state.username,
         password: this.state.password,
-      })
-      .then((response) => {
+      });
+
+    isRegistered.then((response) => {
         console.log("Successfully registered " + this.state.first_name);
+      })
+      .catch((error) => {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx and the error message was that
+        // the user already exists
+        if (
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.message === "USER_ALREADY_EXISTS"
+        ) {
+          this.setState({
+            error: 'Failed to register because username is already taken',
+          });
+        }
       });
   }
 
@@ -47,7 +63,23 @@ export default class Register extends Component {
           <p className="fs-14 text-gray text-center mb-4">
             Track your portfolio and share recommendations with friends.
           </p>
+
           <form onSubmit={this.onSubmit}>
+
+            {
+              /* If this.state.error is true, display the error message. Remember, we need
+              to enclose this statement in brackets because we are writing Javascript code
+              inside JSX.
+              */
+            }
+            <div className="form-group col-auto">
+              {this.state.error && (
+                <div className="alert alert-danger" role="alert">
+                  {this.state.error}
+                </div>
+              )}
+            </div>
+
             <div className="form-row col-auto">
               <div className="form-group col-md-6">
                 <label htmlFor="first_name" className="col-form-label-sm">
@@ -97,7 +129,8 @@ export default class Register extends Component {
                   value={this.state.username}
                   onChange={this.onChange}
                   className="form-control"
-                  required autoFocus
+                  required
+                  autoFocus
                 />
               </div>
             </div>
