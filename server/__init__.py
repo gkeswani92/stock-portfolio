@@ -5,6 +5,7 @@ from flask import Flask
 from server.database import init_db
 from server.database import close_db
 from server.views.auth import auth_bp
+from server.views.follow import follow_bp
 from server.views.index import index_bp
 from server.views.portfolio import portfolio_bp
 
@@ -14,8 +15,9 @@ def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'stock_tracker.sqlite'),
+        DATABASE=os.path.join(app.instance_path, 'test1.sqlite'),
     )
+    print(os.path.join(app.instance_path, 'test1.sqlite'))
 
     # Load the instance config, if it exists
     app.config.from_pyfile('config.py', silent=True)
@@ -38,5 +40,6 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(portfolio_bp)
     app.register_blueprint(index_bp)
+    app.register_blueprint(follow_bp)
 
     return app

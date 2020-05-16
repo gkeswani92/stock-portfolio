@@ -8,3 +8,10 @@ CREATE TABLE user (
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL
 );
+
+CREATE TABLE follows (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  follower INTEGER NOT NULL,
+  followee INTEGER NOT NULL,
+  PRIMARY KEY (follower, followee)
+);

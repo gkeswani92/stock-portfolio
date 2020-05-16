@@ -8,6 +8,8 @@ from server.database import Base
 # created by the code in database.py.
 class User(Base):
     __tablename__ = 'user'
+    __table_args__ = {'extend_existing': True}
+
     id = Column(Integer, primary_key=True)
     first_name = Column(String(50))
     last_name = Column(String(50))

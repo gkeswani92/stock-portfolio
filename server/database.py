@@ -1,13 +1,11 @@
 # coding: utf-8
-from flask import current_app, g
-from flask.cli import with_appcontext
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 engine = create_engine(
-    'sqlite:////tmp/stock_tracker.db',
+    'sqlite:////tmp/test1.db',
     convert_unicode=True,
 )
 
