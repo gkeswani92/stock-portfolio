@@ -44,48 +44,45 @@ def register():
         return response
     else:
         session['user_id'] = user.id
-
-        # Create a flash message that will be accessible when we redirect
-        # to the portfolio index page
-        flash('Registration Successful', 'success')
+        response = jsonify({'message': 'SUCCESS'})
         response.status_code = 200
         return response
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('auth/login.html')
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    # Raise a MissingCredentialsException if the username or password are
+    # missing. This maps to a 400 Bad Request and results in a JSON response
+    # because of the error handler defined below
+    if not username or not password:
+        response = jsonify({
+            'message': 'Please enter the username and password',
+        })
+        response.status_code = 400
+        return response
+
+    # Retrieve the user's information and set the user id in the
+    # session if the login credentials are correct
+    try:
+        user = validate_login_credentials(username, password)
+    except InvalidLoginCredentialsException:
+        response = jsonify({'message': 'INVALID_CREDENTIALS'})
+        response.status_code = 400
+        return response
     else:
-        username = request.form.get('username')
-        password = request.form.get('password')
-
-        # Raise a MissingCredentialsException if the username or password are
-        # missing. This maps to a 400 Bad Request and results in a JSON response
-        # because of the error handler defined below
-        if not username or not password:
-            raise MissingCredentialsException('Username and password are required fields')
-
-        # Retrieve the user's information and set the user id in the
-        # session if the login credentials are correct
-        try:
-            user = validate_login_credentials(username, password)
-        except InvalidLoginCredentialsException:
-            flash('Invalid Login Credentials')
-            return render_template('auth/login.html')
-        else:
-            # session is a dict that stores data across requests. When validation
-            # succeeds, the user’s id is stored in a new session. The data is stored
-            # in a cookie that is sent to the browser, and the browser then sends it
-            # back with subsequent requests. Flask securely signs the data so that it
-            # can’t be tampered with.
-            session.clear()
-            session['user_id'] = user.id
-
-            # The url_for() function generates the URL to a view based on a name
-            # and arguments. The name associated with a view is also called the
-            # endpoint, and by default it’s the same as the name of the view function.
-            return redirect(url_for('portfolio_bp.index'))
+        # session is a dict that stores data across requests. When validation
+        # succeeds, the user’s id is stored in a new session. The data is
+        # stored in a cookie that is sent to the browser, and the browser
+        # then sends it back with subsequent requests. Flask securely signs
+        # the data so that it can’t be tampered with.
+        session.clear()
+        session['user_id'] = user.id
+        response = jsonify({'message': 'SUCCESS'})
+        response.status_code = 200
+        return response
 
 
 @auth_bp.route('/logout')

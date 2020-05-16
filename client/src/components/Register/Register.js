@@ -92,6 +92,7 @@ export default class Register extends Component {
                   value={this.state.first_name}
                   onChange={this.onChange}
                   className="form-control"
+                  autoFocus
                   required
                 />
               </div>
@@ -130,7 +131,6 @@ export default class Register extends Component {
                   onChange={this.onChange}
                   className="form-control"
                   required
-                  autoFocus
                 />
               </div>
             </div>
