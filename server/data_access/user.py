@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 
@@ -38,8 +40,14 @@ def get_user(username: str):
     ).one_or_none()
 
 
-def get_user_by_id(user_id: int) -> User:
+def get_user_by_id(user_id: int):
     """Get user information by user_id from the database"""
     return User.query.filter(
         User.id == user_id,
     ).one_or_none()
+
+
+def get_user_info_by_user_ids(user_ids: List[int]):
+    return User.query.filter(
+        User.id.in_(user_ids),
+    ).all()

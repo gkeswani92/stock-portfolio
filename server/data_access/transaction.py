@@ -1,3 +1,5 @@
+from typing import List
+
 from server.data_models.transaction import Transaction
 from server.database import db_session
 
@@ -24,4 +26,11 @@ def get_transactions_by_user_id(user_id: int):
     """Get the list of transactions made by the given user"""
     return Transaction.query.filter(
         Transaction.user_id == user_id,
+    ).all()
+
+
+def get_transactions_by_user_ids(user_ids: List[int]):
+    """Get the list of transactions made by the given user ids"""
+    return Transaction.query.filter(
+        Transaction.user_id.in_(user_ids)
     ).all()
