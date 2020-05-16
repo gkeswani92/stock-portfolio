@@ -37,7 +37,6 @@ def get_followees_for_user(user_id: int):
     """Get the list of user ids that the user follows"""
     followees = list(get_followees_by_user_id(user_id))
     response = jsonify({
-        'message': 'SUCCESS',
         'followees': followees,
     })
     response.status_code = 200
@@ -49,7 +48,6 @@ def get_followers_for_user(user_id: int):
     """Get the list of user ids that follow a user"""
     followers = list(get_followers_by_user_id(user_id))
     response = jsonify({
-        'message': 'SUCCESS',
         'followers': followers,
     })
     response.status_code = 200

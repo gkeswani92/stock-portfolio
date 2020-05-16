@@ -17,6 +17,3 @@ class Follows(Base):
     def __init__(self, followee=None, follower=None):
         self.follower = follower
         self.followee = followee
-
-    def __repr__(self):
-        return f'User(username={self.username})'

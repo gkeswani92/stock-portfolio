@@ -8,6 +8,7 @@ from server.views.auth import auth_bp
 from server.views.follow import follow_bp
 from server.views.index import index_bp
 from server.views.portfolio import portfolio_bp
+from server.views.transaction import transaction_bp
 
 
 def create_app():
@@ -41,5 +42,6 @@ def create_app():
     app.register_blueprint(portfolio_bp)
     app.register_blueprint(index_bp)
     app.register_blueprint(follow_bp)
+    app.register_blueprint(transaction_bp)
 
     return app
