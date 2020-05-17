@@ -3,6 +3,7 @@ from flask import render_template
 
 from server.data_access.follows import get_followees_by_user_id
 from server.data_access.transaction import get_transactions_by_user_ids
+from server.data_access.user import get_user_info_by_user_ids
 
 
 # Defining a blue print for all URLs that begin with /.
@@ -33,6 +34,11 @@ def get_feed_for_user(user_id: int):
     # Get the list of all users that this user is following and retrieve their
     # user information
     followee_ids = get_followees_by_user_id(user_id)
+    user_info = get_user_info_by_user_ids(followee_ids)
+    user_id_to_user_info = {
+        user.id: user
+        for user in user_info
+    }
 
     # Get the transactions for the list of followers and format the response
     transactions = get_transactions_by_user_ids(followee_ids)
@@ -45,6 +51,7 @@ def get_feed_for_user(user_id: int):
         'transactions': [
             {
                 'user_id': transaction.user_id,
+                'username': user_id_to_user_info[transaction.user_id].username,
                 'ticker': transaction.ticker,
                 'price': transaction.price,
                 'quantity': transaction.quantity,
