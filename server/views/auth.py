@@ -5,12 +5,18 @@ from flask import redirect
 from flask import request
 from flask import session
 from flask import url_for
+from string import Template
 
 from server.data_access.user import register_user
 from server.data_access.user import UserAlreadyExistsException
 from server.exceptions import InvalidLoginCredentialsException
 from server.exceptions import MissingCredentialsException
 from server.util.auth import validate_login_credentials
+
+
+PROFILE_PICTURES_PATH = Template(
+    './server/images/profile_pictures/$filename.jpg',
+)
 
 # Defining a blue print for all URLs that begin with /auth.
 # All views that are related to auth should be registered with
@@ -24,17 +30,24 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     # Case: When the register view is called with HTTP POST, we try to
     # register them in the database
-    first_name = request.json['first_name']
-    last_name = request.json['last_name']
-    username = request.json['username']
-    password = request.json['password']
-    if not all([first_name, last_name, username, password]):
-        abort(400)
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    profile_picture = request.files.get('profile_picture')
 
-    # Attempt to register the user and return the appropriate response
-    # to the client
+    if not all([first_name, last_name, username, password, profile_picture]):
+        response = jsonify({'message': 'MISSING_DATA'})
+        response.status_code = 400
+        return response
+
+    # Attempt to register the user, save their profile picture and return
+    # the appropriate response to the client
     try:
         user = register_user(first_name, last_name, username, password)
+        profile_picture.save(
+            PROFILE_PICTURES_PATH.substitute(filename=user.id),
+        )
     except UserAlreadyExistsException:
         response = jsonify({'message': 'USER_ALREADY_EXISTS'})
         response.status_code = 400

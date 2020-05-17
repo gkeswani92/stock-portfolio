@@ -10,11 +10,19 @@ export default class Register extends Component {
       last_name: "",
       username: "",
       password: "",
+      profilePicture: "",
       error: "",
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.uploadFile = this.uploadFile.bind(this);
+  }
+
+  uploadFile(event) {
+    this.setState({
+      profilePicture: event.target.files[0],
+    });
   }
 
   onChange(event) {
@@ -28,15 +36,21 @@ export default class Register extends Component {
     // of making a GET request to the backend
     event.preventDefault();
 
-    var isRegistered = axios
-      .post("/auth/register", {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        username: this.state.username,
-        password: this.state.password,
-      });
+    const formData = new FormData();
+    formData.append('first_name', this.state.first_name);
+    formData.append('last_name', this.state.last_name);
+    formData.append('username', this.state.username);
+    formData.append('password', this.state.password);
+    formData.append('profile_picture', this.state.profilePicture);
 
-    isRegistered.then((response) => {
+    var isRegistered = fetch(
+      '/auth/register', {
+      method: 'POST',
+      body: formData,
+    });
+
+    isRegistered
+      .then((response) => {
         console.log("Successfully registered " + this.state.first_name);
       })
       .catch((error) => {
@@ -49,7 +63,7 @@ export default class Register extends Component {
           error.response.data.message === "USER_ALREADY_EXISTS"
         ) {
           this.setState({
-            error: 'Failed to register because username is already taken',
+            error: "Failed to register because username is already taken",
           });
         }
       });
@@ -65,13 +79,10 @@ export default class Register extends Component {
           </p>
 
           <form onSubmit={this.onSubmit}>
-
-            {
-              /* If this.state.error is true, display the error message. Remember, we need
+            {/* If this.state.error is true, display the error message. Remember, we need
               to enclose this statement in brackets because we are writing Javascript code
               inside JSX.
-              */
-            }
+              */}
             <div className="form-group col-auto">
               {this.state.error && (
                 <div className="alert alert-danger" role="alert">
@@ -154,6 +165,22 @@ export default class Register extends Component {
             </div>
 
             <div className="form-group col-auto">
+              <div className="custom-file">
+                <input
+                  type="file"
+                  name="profilePicture"
+                  className="custom-file-input"
+                  id="profilePicture"
+                  onChange={this.uploadFile}
+                  required
+                />
+                <label className="custom-file-label col-form-label-sm" for="profilePicture">
+                  { this.state.profilePicture.name || 'Choose Profile Picture' }
+                </label>
+              </div>
+            </div>
+
+            <div className="form-group col-auto signUpButton">
               <button type="submit" className="btn btn-primary btn-block">
                 Sign Up
               </button>
