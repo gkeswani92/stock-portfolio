@@ -1,11 +1,8 @@
 from flask import abort
 from flask import Blueprint
-from flask import flash
 from flask import jsonify
-from flask import render_template
 from flask import redirect
 from flask import request
-from flask import Response
 from flask import session
 from flask import url_for
 
@@ -73,11 +70,6 @@ def login():
         response.status_code = 400
         return response
     else:
-        # session is a dict that stores data across requests. When validation
-        # succeeds, the user’s id is stored in a new session. The data is
-        # stored in a cookie that is sent to the browser, and the browser
-        # then sends it back with subsequent requests. Flask securely signs
-        # the data so that it can’t be tampered with.
         session.clear()
         session['user_id'] = user.id
         response = jsonify({'message': 'SUCCESS'})

@@ -1,4 +1,5 @@
 from sqlalchemy.exc import IntegrityError
+from typing import List
 
 from server.data_models.follows import Follows
 from server.database import db_session
@@ -11,7 +12,7 @@ class DuplicateFollowException(Exception):
 def follow_user(
     follower: int,
     followee: int,
-):
+) -> bool:
     """Store the follows relationship in the database"""
     follows = Follows(
         follower=follower,
@@ -26,7 +27,7 @@ def follow_user(
     return True
 
 
-def get_followees_by_user_id(user_id: int):
+def get_followees_by_user_id(user_id: int) -> List[int]:
     """Get the list of user_ids that are followed by the given user id"""
     result = Follows.query.filter(
         Follows.follower == user_id,
@@ -35,7 +36,7 @@ def get_followees_by_user_id(user_id: int):
     return {row.followee for row in result}
 
 
-def get_followers_by_user_id(user_id: int):
+def get_followers_by_user_id(user_id: int) -> List[int]:
     """Get the list of user_ids that are following the given user id"""
     result = Follows.query.filter(
         Follows.followee == user_id,

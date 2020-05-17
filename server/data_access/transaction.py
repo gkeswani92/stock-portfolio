@@ -9,7 +9,7 @@ def add_transaction(
     ticker: str,
     quantity: float,
     price: float,
-):
+) -> bool:
     """Store the transaction in the database"""
     follows = Transaction(
         user_id=user_id,
@@ -22,14 +22,14 @@ def add_transaction(
     return True
 
 
-def get_transactions_by_user_id(user_id: int):
+def get_transactions_by_user_id(user_id: int) -> List[Transaction]:
     """Get the list of transactions made by the given user"""
     return Transaction.query.filter(
         Transaction.user_id == user_id,
     ).all()
 
 
-def get_transactions_by_user_ids(user_ids: List[int]):
+def get_transactions_by_user_ids(user_ids: List[int]) -> List[Transaction]:
     """Get the list of transactions made by the given user ids"""
     return Transaction.query.filter(
         Transaction.user_id.in_(user_ids)

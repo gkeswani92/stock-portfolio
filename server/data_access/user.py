@@ -1,4 +1,5 @@
 from typing import List
+from typing import Optional
 
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
@@ -16,7 +17,7 @@ def register_user(
     last_name: str,
     username: str,
     password: str,
-):
+) -> User:
     """Store user information in the database"""
     user = User(
         first_name=first_name,
@@ -33,21 +34,21 @@ def register_user(
         return user
 
 
-def get_user(username: str):
+def get_user(username: str) -> Optional[User]:
     """Get user information from the database"""
     return User.query.filter(
         User.username == username,
     ).one_or_none()
 
 
-def get_user_by_id(user_id: int):
+def get_user_by_id(user_id: int) -> Optional[User]:
     """Get user information by user_id from the database"""
     return User.query.filter(
         User.id == user_id,
     ).one_or_none()
 
 
-def get_user_info_by_user_ids(user_ids: List[int]):
+def get_user_info_by_user_ids(user_ids: List[int]) -> List[User]:
     return User.query.filter(
         User.id.in_(user_ids),
     ).all()

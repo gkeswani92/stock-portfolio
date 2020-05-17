@@ -27,3 +27,8 @@ class Transaction(Base):
         self.ticker = ticker
         self.quantity = quantity
         self.price = price
+
+    def __repr__(self):
+        return f'Transaction(user_id={self.user_id} ' \
+               f'symbol={self.ticker} quantity={self.quantity} ' \
+               f'price={self.price}'
