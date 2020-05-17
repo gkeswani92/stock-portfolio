@@ -43,28 +43,31 @@ export default class Register extends Component {
     formData.append('password', this.state.password);
     formData.append('profile_picture', this.state.profilePicture);
 
-    var isRegistered = fetch(
-      '/auth/register', {
-      method: 'POST',
-      body: formData,
-    });
-
-    isRegistered
-      .then((response) => {
+    axios.post(
+      '/auth/register',
+      formData,
+    )
+    .then((response) => {
         console.log("Successfully registered " + this.state.first_name);
-      })
-      .catch((error) => {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx and the error message was that
-        // the user already exists
-        if (
-          error.response &&
-          error.response.status === 400 &&
-          error.response.data.message === "USER_ALREADY_EXISTS"
-        ) {
-          this.setState({
-            error: "Failed to register because username is already taken",
-          });
+    })
+    .catch((error) => {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and the error message was that
+      // the user already exists
+      if (
+        error.response &&
+        error.response.status === 400
+      ) {
+          if (error.response.data.message === 'USER_ALREADY_EXISTS') {
+            this.setState({
+              error: "Failed to register because username is already taken",
+            });
+          }
+          else {
+            this.setState({
+              error: "Failed to register because profile picture format is unsupported",
+            });
+          }
         }
       });
   }
@@ -174,7 +177,7 @@ export default class Register extends Component {
                   onChange={this.uploadFile}
                   required
                 />
-                <label className="custom-file-label col-form-label-sm" for="profilePicture">
+                <label className="custom-file-label col-form-label-sm" htmlFor="profilePicture">
                   { this.state.profilePicture.name || 'Choose Profile Picture' }
                 </label>
               </div>

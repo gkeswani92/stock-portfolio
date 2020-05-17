@@ -17,6 +17,7 @@ from server.util.auth import validate_login_credentials
 PROFILE_PICTURES_PATH = Template(
     './server/images/profile_pictures/$filename.jpg',
 )
+ALLOWED_CONTENT_TYPES = {'image/jpeg'}
 
 # Defining a blue print for all URLs that begin with /auth.
 # All views that are related to auth should be registered with
@@ -41,6 +42,12 @@ def register():
         response.status_code = 400
         return response
 
+    if profile_picture.content_type not in ALLOWED_CONTENT_TYPES:
+        print('bad image')
+        response = jsonify({'message': 'UNSUPPORTED_CONTENT_TYPE'})
+        response.status_code = 400
+        return response
+
     # Attempt to register the user, save their profile picture and return
     # the appropriate response to the client
     try:
@@ -49,6 +56,7 @@ def register():
             PROFILE_PICTURES_PATH.substitute(filename=user.id),
         )
     except UserAlreadyExistsException:
+        print('user exists')
         response = jsonify({'message': 'USER_ALREADY_EXISTS'})
         response.status_code = 400
         return response
