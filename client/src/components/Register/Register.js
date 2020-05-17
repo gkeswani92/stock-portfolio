@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./Register.css";
 
+
+const REGISTER_4XX_ERRORS_TO_USER_MESSAES = {
+  'USER_ALREADY_EXISTS': "Failed to register because username is already taken",
+  'UNSUPPORTED_CONTENT_TYPE': "Failed to register because profile picture format is unsupported",
+};
+
+
 export default class Register extends Component {
   constructor() {
     super();
@@ -58,18 +65,11 @@ export default class Register extends Component {
         error.response &&
         error.response.status === 400
       ) {
-          if (error.response.data.message === 'USER_ALREADY_EXISTS') {
-            this.setState({
-              error: "Failed to register because username is already taken",
-            });
-          }
-          else {
-            this.setState({
-              error: "Failed to register because profile picture format is unsupported",
-            });
-          }
-        }
-      });
+        this.setState({
+          error: REGISTER_4XX_ERRORS_TO_USER_MESSAES[error.response.data.message],
+        });
+      }
+    });
   }
 
   render() {
