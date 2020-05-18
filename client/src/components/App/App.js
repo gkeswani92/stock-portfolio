@@ -13,6 +13,8 @@ export default class App extends Component {
       isLoggedIn: false,
       userId: {},
     };
+
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentWillMount() {
@@ -30,11 +32,11 @@ export default class App extends Component {
           });
           console.log("User is already logged in");
         } else if (!response.data.is_logged_in && this.state.isLoggedIn) {
-            this.setState({
-              isLoggedIn: false,
-              userId: {},
-            });
-            console.log("User is not logged in as per the backend. Reset state");
+          this.setState({
+            isLoggedIn: false,
+            userId: {},
+          });
+          console.log("User is not logged in as per the backend. Reset state");
         }
       })
       .catch((error) => {
@@ -42,11 +44,31 @@ export default class App extends Component {
       });
   }
 
+  handleLogout() {
+    axios
+      .post("/auth/logout")
+      .then((response) => {
+        if (response.data.logged_out) {
+          this.setState({
+            isLoggedIn: false,
+            userId: {},
+          });
+          console.log("User has been logged out");
+        }
+      })
+      .catch((error) => {
+        console.log("Error encountered while logging out the user");
+      });
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-          <NavBar />
+          <NavBar
+            isLoggedIn={this.state.isLoggedIn}
+            handleLogout={this.handleLogout}
+          />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/home" />

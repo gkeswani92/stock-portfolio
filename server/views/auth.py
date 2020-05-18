@@ -112,10 +112,13 @@ def is_logged_in():
     }
 
 
-@auth_bp.route('/logout')
+@auth_bp.route('/logout', methods=['POST'])
 def logout():
     session.clear()
-    return {}
+    response = jsonify({'logged_out': True})
+    response.status_code = 200
+    return response
+
 
 
 @auth_bp.errorhandler(InvalidLoginCredentialsException)
