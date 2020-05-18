@@ -98,10 +98,15 @@ def login():
         return response
 
 
+@auth_bp.route('/is_logged_in')
+def is_logged_in():
+    return {'is_logged_in': 'user_id' in session}
+
+
 @auth_bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index_bp.index'))
+    return {}
 
 
 @auth_bp.errorhandler(InvalidLoginCredentialsException)

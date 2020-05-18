@@ -7,7 +7,7 @@ export default class NavBar extends Component {
     return (
       <div>
         <nav className="nav navbar justify-content-left navbar-expand-lg navbar-dark bg-dark">
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
               <img
                 src=""
                 width="30"
