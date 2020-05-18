@@ -11,6 +11,7 @@ export default class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
+      userId: {},
     };
   }
 
@@ -22,12 +23,18 @@ export default class App extends Component {
     axios
       .get("/auth/is_logged_in")
       .then((response) => {
-        if (
-          response.data.is_logged_in === true &&
-          this.state.isLoggedIn === false
-        ) {
-          this.setState({ isLoggedIn: true });
+        if (response.data.is_logged_in && !this.state.isLoggedIn) {
+          this.setState({
+            isLoggedIn: true,
+            userId: response.data.user,
+          });
           console.log("User is already logged in");
+        } else if (!response.data.is_logged_in && this.state.isLoggedIn) {
+            this.setState({
+              isLoggedIn: false,
+              userId: {},
+            });
+            console.log("User is not logged in as per the backend. Reset state");
         }
       })
       .catch((error) => {

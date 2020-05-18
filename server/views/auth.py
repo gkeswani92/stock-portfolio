@@ -1,12 +1,10 @@
-from flask import abort
 from flask import Blueprint
 from flask import jsonify
-from flask import redirect
 from flask import request
 from flask import session
-from flask import url_for
 from string import Template
 
+from server.data_access.user import get_user_by_id
 from server.data_access.user import register_user
 from server.data_access.user import UserAlreadyExistsException
 from server.exceptions import InvalidLoginCredentialsException
@@ -100,7 +98,18 @@ def login():
 
 @auth_bp.route('/is_logged_in')
 def is_logged_in():
-    return {'is_logged_in': 'user_id' in session}
+    is_logged_in = 'user_id' in session
+    if not is_logged_in:
+        return {'is_logged_in': False}
+
+    user = get_user_by_id(user_id=session['user_id'])
+    return {
+        'is_logged_in': True,
+        'user': {
+            'user_id': user.id,
+            'username': user.username,
+        }
+    }
 
 
 @auth_bp.route('/logout')
