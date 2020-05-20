@@ -4,6 +4,12 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+from server.config import load_private_configs
+
+
+db_credentials = load_private_configs()['database']
+print(db_credentials)
+
 # SQLAlchemy is an ORM (Object Relational Mapping)
 # It is a programming technique for converting data from tables to
 # objects
@@ -23,7 +29,12 @@ from sqlalchemy.ext.declarative import declarative_base
 # 1) SQLLite: sqllite:///<database_name.db>
 # 2) MySQL: mysql+mysqlconnector://root:<password>@localhost:3306/db_name
 engine = create_engine(
-    'mysql+mysqlconnector://{username}:{password}@localhost:3306/stock_portfolio',
+    'mysql+mysqlconnector://{username}:{password}@{host}:3306/{db}'.format(
+        username=db_credentials['username'],
+        password=db_credentials['password'],
+        db=db_credentials['db_name'],
+        host=db_credentials['host'],
+    ),
     convert_unicode=True,
 )
 

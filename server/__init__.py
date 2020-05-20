@@ -18,7 +18,6 @@ def create_app():
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'test1.sqlite'),
     )
-    print(os.path.join(app.instance_path, 'test1.sqlite'))
 
     # Load the instance config, if it exists
     app.config.from_pyfile('config.py', silent=True)
