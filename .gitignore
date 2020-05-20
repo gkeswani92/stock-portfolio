@@ -15,3 +15,5 @@ build/
 node_modules
 
 server/images/profile_pictures/*.jpg
+server/private_config.yaml
+.vscode/settings.json
