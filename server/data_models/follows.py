@@ -11,8 +11,8 @@ class Follows(Base):
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
-    follower = Column(Integer)
-    followee = Column(Integer)
+    follower = Column(Integer, nullable=False)
+    followee = Column(Integer, nullable=False)
 
     def __init__(self, followee=None, follower=None):
         self.follower = follower

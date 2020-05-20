@@ -6,15 +6,20 @@ from server.database import Base
 
 # To define your models, just subclass the Base class that was
 # created by the code in database.py.
+# Note: This is the declarative way of using SQLAlchemy where we
+# define classes that are mapped to relational database tables
 class User(Base):
     __tablename__ = 'user'
+
+    # Including this will mean that we can modify this data model as we go
+    # along. Without it, we will get an exception
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
-    first_name = Column(String(50))
-    last_name = Column(String(50))
-    username = Column(String(50), unique=True)
-    password = Column(String(120))
+    first_name = Column(String(50), nullable=False)
+    last_name = Column(String(50), nullable=False)
+    username = Column(String(50), unique=True, nullable=False)
+    password = Column(String(120), nullable=False)
 
     def __init__(
         self,
