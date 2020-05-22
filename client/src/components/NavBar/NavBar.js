@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
@@ -60,4 +61,13 @@ export default class NavBar extends Component {
       </div>
     );
   }
+}
+
+
+// PropTypes is one way of adding type checking to JavaScript. Other
+// competing projects are TypeScript from Microsoft and Flow from Facebook
+// They are superior to prop types because they allow us to detect problems
+// at compile time
+NavBar.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
 }
