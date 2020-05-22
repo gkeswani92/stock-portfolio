@@ -85,6 +85,20 @@ def login():
     try:
         user = validate_login_credentials(username, password)
     except InvalidLoginCredentialsException:
+        # Error handling
+        # We want to return a 400 Bad Request to tell the user that there was
+        # something wrong with their request but we also want to supply an
+        # error message to tell them what was wrong so that they can correct
+        # their mistake in the follow up call
+
+        # Note: It is important to be careful with drawing the line between
+        # a very generic message and a very specific message.
+        # For example: It is not a good idea to return messages like 'Wrong
+        # Password' or 'Username does not exist' since it gives the hacker
+        # an idea of how they can break the system. Instead provide a more
+        # generic error like 'Invalid Credentials' so that they know
+        # something was wrong with the credentials but not exactly what was
+        # wrong
         response = jsonify({'message': 'INVALID_CREDENTIALS'})
         response.status_code = 400
         return response
@@ -118,7 +132,6 @@ def logout():
     response = jsonify({'logged_out': True})
     response.status_code = 200
     return response
-
 
 
 @auth_bp.errorhandler(InvalidLoginCredentialsException)

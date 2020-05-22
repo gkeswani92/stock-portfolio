@@ -47,6 +47,29 @@ def get_feed_for_user(user_id: int):
         key=lambda x: x.created_at,
         reverse=True,
     )
+
+    # Pagination:
+    # If a list is supposed to have a finite number of entries, we should
+    # return all entries. But if at any point, we can have a situation
+    # where the number of items returned can be infinite, we should use
+    # paging.
+    #
+    # How can clients request pages?
+    # Query strings are commonly used for paging in the following way:
+    # /api/sites?page=1&page_size=25
+    # You could make an argument for page_size being controlled by the backend
+    # but you might also want to give that flexibility to the client
+    #
+    # Example response with page information:
+    # {
+    #   totalResults: 255,
+    #   nextPage: "api/sites?page=5"
+    #   prevPage: "api/sites?page=5"
+    #   results: [...]
+    # }
+    #
+    # You can also choose to send the paging details back in the header instead
+    # of the body
     return {
         'transactions': [
             {
