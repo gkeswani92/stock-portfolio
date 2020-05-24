@@ -1,3 +1,5 @@
+import functools
+
 from flask import redirect
 from flask import session
 from flask import url_for
