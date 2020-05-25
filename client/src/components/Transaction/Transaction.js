@@ -7,11 +7,10 @@ export default class Transaction extends Component {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     ticker: PropTypes.string.isRequired,
-    tickerImage: PropTypes.string,
     orderType: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    createdAt: PropTypes.number,
+    createdAt: PropTypes.string.isRequired,
   };
 
   render() {
@@ -35,12 +34,16 @@ export default class Transaction extends Component {
               )}
 
               <p className="card-text">
-                {this.props.firstName}{" "} {this.props.lastName}{" "}
+                {this.props.firstName} {this.props.lastName}{" "}
                 {this.props.orderType === "BUY" && "bought"}{" "}
                 {this.props.orderType === "SELL" && "sold"}{" "}
                 {this.props.quantity} stocks of {this.props.ticker} at $
                 {this.props.price}
               </p>
+
+              <footer className="blockquote-footer">
+                {this.props.createdAt}
+              </footer>
             </div>
           </div>
         </div>

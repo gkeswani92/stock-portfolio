@@ -43,6 +43,7 @@ export default class Home extends Component {
               orderType={value.orderType}
               quantity={value.quantity}
               price={value.price}
+              createdAt={value.createdAt}
             />
           );
         })}

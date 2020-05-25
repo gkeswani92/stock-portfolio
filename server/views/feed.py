@@ -66,7 +66,7 @@ def get_feed_for_user(user_id: int):
                 "orderType": OrderType(int(transaction.order_type)).name,
                 "price": transaction.price,
                 "quantity": transaction.quantity,
-                "created_at": transaction.created_at,
+                "createdAt": transaction.created_at,
             }
             for transaction in sorted_transactions[:PAGINATION_SIZE]
         ],
