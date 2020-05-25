@@ -20,7 +20,7 @@ export default class Transaction extends Component {
           <div className="col-auto">
             <img
               src={"ticker/" + this.props.ticker + ".png"}
-              className="img-fluid ticker-image"
+              className="img-fluid ticker-image rounded-circle"
               alt={this.props.ticker}
             />
           </div>

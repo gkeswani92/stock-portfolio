@@ -49,26 +49,32 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.hasFeedItems &&
-          this.state.feed.map((value, index) => {
-            return (
-              <Transaction
-                key={index}
-                firstName={value.firstName}
-                lastName={value.lastName}
-                ticker={value.ticker}
-                orderType={value.orderType}
-                quantity={value.quantity}
-                price={value.price}
-                createdAt={value.createdAt}
-              />
-            );
-          })}
+      <div className="container">
+        <div className="row">
+          <div className="col-2"></div>
+          <div className="col-8">
+            {this.state.hasFeedItems &&
+              this.state.feed.map((value, index) => {
+                return (
+                  <Transaction
+                    key={index}
+                    firstName={value.firstName}
+                    lastName={value.lastName}
+                    ticker={value.ticker}
+                    orderType={value.orderType}
+                    quantity={value.quantity}
+                    price={value.price}
+                    createdAt={value.createdAt}
+                  />
+                );
+              })}
 
-        {!this.state.hasFeedItems && (
-          <FollowUsersJumbotron username={this.props.username} />
-        )}
+            {!this.state.hasFeedItems && (
+              <FollowUsersJumbotron username={this.props.username} />
+            )}
+          </div>
+          <div className="col-2"></div>
+        </div>
       </div>
     );
   }
