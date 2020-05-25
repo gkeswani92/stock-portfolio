@@ -2,11 +2,13 @@ from typing import List
 
 from server.data_models.transaction import Transaction
 from server.database import db_session
+from server.constants import OrderType
 
 
 def add_transaction(
     user_id: int,
     ticker: str,
+    order_type: OrderType,
     quantity: float,
     price: float,
 ) -> bool:
@@ -14,6 +16,7 @@ def add_transaction(
     follows = Transaction(
         user_id=user_id,
         ticker=ticker,
+        order_type=order_type,
         quantity=quantity,
         price=price,
     )

@@ -2,16 +2,19 @@ import datetime
 
 from sqlalchemy import Column
 from sqlalchemy import DateTime
+from sqlalchemy import Enum
 from sqlalchemy import Float
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
 from sqlalchemy.orm import relationship
+
 from server.database import Base
+from server.constants import OrderType
 
 
 class Transaction(Base):
-    __tablename__ = 'transaction'
+    __tablename__ = 'user_transaction'
     __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
@@ -23,6 +26,7 @@ class Transaction(Base):
         nullable=False,
     )
     ticker = Column(String(16), nullable=False)
+    order_type = Column(Enum(OrderType), nullable=False)
     quantity = Column(Float, nullable=False)
     price = Column(Float, nullable=False)
     created_at = Column(
@@ -35,9 +39,10 @@ class Transaction(Base):
     # we can go from every row in this table to the corresponding user.
     User = relationship('User', backref='transaction')
 
-    def __init__(self, user_id, ticker, quantity, price):
+    def __init__(self, user_id, ticker, order_type, quantity, price):
         self.user_id = user_id
         self.ticker = ticker
+        self.order_type = order_type
         self.quantity = quantity
         self.price = price
 

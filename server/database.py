@@ -8,7 +8,7 @@ from server.config import load_private_configs
 
 
 db_credentials = load_private_configs()['database']
-print(db_credentials)
+
 
 # SQLAlchemy is an ORM (Object Relational Mapping)
 # It is a programming technique for converting data from tables to

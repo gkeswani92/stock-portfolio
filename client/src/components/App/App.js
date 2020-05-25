@@ -4,6 +4,7 @@ import axios from "axios";
 import NavBar from "../NavBar/NavBar";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import Home from "../Home/Home";
 import "./App.css";
 
 export default class App extends Component {
@@ -11,7 +12,7 @@ export default class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
-      userId: {},
+      userId: NaN,
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -28,13 +29,13 @@ export default class App extends Component {
         if (response.data.is_logged_in && !this.state.isLoggedIn) {
           this.setState({
             isLoggedIn: true,
-            userId: response.data.user,
+            userId: response.data.user.user_id,
           });
           console.log("User is already logged in");
         } else if (!response.data.is_logged_in && this.state.isLoggedIn) {
           this.setState({
             isLoggedIn: false,
-            userId: {},
+            userId: NaN,
           });
           console.log("User is not logged in as per the backend. Reset state");
         }
@@ -71,7 +72,10 @@ export default class App extends Component {
           />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/home" />
+          <Route
+            path="/home"
+            render={(props) => <Home userId={this.state.userId} />}
+          />
         </div>
       </Router>
     );

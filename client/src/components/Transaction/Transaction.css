@@ -1,0 +1,24 @@
+.ticker-image {
+    width: 6rem;
+    height: 6rem;
+}
+
+.card-block {
+    padding: 0.5rem;
+}
+
+.card-title {
+    margin-top: 0.5rem;
+}
+
+.card-text {
+    margin-top: 0.1rem;
+}
+
+.buy-alert {
+    color: green;
+}
+
+.sell-alert {
+    color: red;
+}

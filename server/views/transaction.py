@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import jsonify
 from flask import request
 
+from server.constants import OrderType
 from server.data_access.transaction import add_transaction
 from server.data_access.transaction import get_transactions_by_user_id
 
@@ -21,6 +22,7 @@ transaction_bp = Blueprint(
 def add_transaction_by_user(user_id: int):
     """Follow a user"""
     ticker = request.form.get('ticker')
+    order_type = OrderType[request.form.get('order_type')]
     price = request.form.get('price')
     quantity = request.form.get('quantity')
 
@@ -31,7 +33,7 @@ def add_transaction_by_user(user_id: int):
         response.status_code = 400
         return response
 
-    add_transaction(user_id, ticker, quantity, price)
+    add_transaction(user_id, ticker, order_type, quantity, price)
     response = jsonify({'message': 'SUCCESS'})
     response.status_code = 200
     return response
@@ -46,6 +48,7 @@ def get_transactions_for_user(user_id: int):
         'transactions': [
             {
                 'ticker': transaction.ticker,
+                'order_type': transaction.order_type,
                 'price': transaction.price,
                 'quantity': transaction.quantity,
                 'time': transaction.created_at,
