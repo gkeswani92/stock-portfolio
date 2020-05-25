@@ -4,7 +4,8 @@ import "./Transaction.css";
 
 export default class Transaction extends Component {
   static propTypes = {
-    username: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
     ticker: PropTypes.string.isRequired,
     tickerImage: PropTypes.string,
     orderType: PropTypes.string.isRequired,
@@ -25,7 +26,7 @@ export default class Transaction extends Component {
             />
           </div>
           <div className="col">
-            <div className="card-block">
+            <div className="card-body">
               {this.props.orderType === "BUY" && (
                 <h5 className="card-title buy-alert">Buy Alert</h5>
               )}
@@ -34,7 +35,7 @@ export default class Transaction extends Component {
               )}
 
               <p className="card-text">
-                {this.props.username}{" "}
+                {this.props.firstName}{" "} {this.props.lastName}{" "}
                 {this.props.orderType === "BUY" && "bought"}{" "}
                 {this.props.orderType === "SELL" && "sold"}{" "}
                 {this.props.quantity} stocks of {this.props.ticker} at $

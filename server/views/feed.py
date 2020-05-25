@@ -10,29 +10,24 @@ from server.constants import OrderType
 # All views that are related to portfolio should be registered with
 # this blueprint and this blueprint will in turn be registred
 # with the flask application
-feed_bp = Blueprint('feed_bp', __name__, url_prefix='/feed')
+feed_bp = Blueprint("feed_bp", __name__, url_prefix="/feed")
 
 PAGINATION_SIZE = 25
 
 
-@feed_bp.route('/<int:user_id>')
+@feed_bp.route("/<int:user_id>")
 def get_feed_for_user(user_id: int):
     """Return the transactions a user should see on their feed"""
     # Get the list of all users that this user is following and retrieve their
     # user information
     followee_ids = get_followees_by_user_id(user_id)
     user_info = get_user_info_by_user_ids(followee_ids)
-    user_id_to_user_info = {
-        user.id: user
-        for user in user_info
-    }
+    user_id_to_user_info = {user.id: user for user in user_info}
 
     # Get the transactions for the list of followers and format the response
     transactions = get_transactions_by_user_ids(followee_ids)
     sorted_transactions = sorted(
-        transactions,
-        key=lambda x: x.created_at,
-        reverse=True,
+        transactions, key=lambda x: x.created_at, reverse=True,
     )
 
     # Pagination:
@@ -58,19 +53,24 @@ def get_feed_for_user(user_id: int):
     # You can also choose to send the paging details back in the header instead
     # of the body
     return {
-        'transactions': [
+        "transactions": [
             {
-                'user_id': transaction.user_id,
-                'username': user_id_to_user_info[transaction.user_id].username,
-                'ticker': transaction.ticker,
-                'orderType': OrderType(int(transaction.order_type)).name,
-                'price': transaction.price,
-                'quantity': transaction.quantity,
-                'created_at': transaction.created_at,
+                "user_id": transaction.user_id,
+                "firstName": user_id_to_user_info[
+                    transaction.user_id
+                ].first_name,
+                "lastName": user_id_to_user_info[
+                    transaction.user_id
+                ].last_name,
+                "ticker": transaction.ticker,
+                "orderType": OrderType(int(transaction.order_type)).name,
+                "price": transaction.price,
+                "quantity": transaction.quantity,
+                "created_at": transaction.created_at,
             }
             for transaction in sorted_transactions[:PAGINATION_SIZE]
         ],
-        'page': 1,
-        'count': len(sorted_transactions[:PAGINATION_SIZE]),
-        'total_items': len(sorted_transactions),
+        "page": 1,
+        "count": len(sorted_transactions[:PAGINATION_SIZE]),
+        "total_items": len(sorted_transactions),
     }

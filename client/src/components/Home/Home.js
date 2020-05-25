@@ -37,7 +37,8 @@ export default class Home extends Component {
           return (
             <Transaction
               key={index}
-              username={value.username}
+              firstName={value.firstName}
+              lastName={value.lastName}
               ticker={value.ticker}
               orderType={value.orderType}
               quantity={value.quantity}
