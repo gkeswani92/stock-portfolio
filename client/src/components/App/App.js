@@ -13,8 +13,10 @@ export default class App extends Component {
     this.state = {
       isLoggedIn: false,
       userId: NaN,
+      username: "",
     };
 
+    this.checkLoginStatus = this.checkLoginStatus.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -30,12 +32,14 @@ export default class App extends Component {
           this.setState({
             isLoggedIn: true,
             userId: response.data.user.user_id,
+            username: response.data.user.username,
           });
           console.log("User is already logged in");
         } else if (!response.data.is_logged_in && this.state.isLoggedIn) {
           this.setState({
             isLoggedIn: false,
             userId: NaN,
+            username: "",
           });
           console.log("User is not logged in as per the backend. Reset state");
         }
@@ -52,7 +56,8 @@ export default class App extends Component {
         if (response.data.logged_out) {
           this.setState({
             isLoggedIn: false,
-            userId: {},
+            userId: NaN,
+            username: "",
           });
           console.log("User has been logged out");
         }
@@ -74,7 +79,12 @@ export default class App extends Component {
           <Route path="/register" component={Register} />
           <Route
             path="/home"
-            render={(props) => <Home userId={this.state.userId} />}
+            render={(props) => (
+              <Home
+                userId={this.state.userId}
+                username={this.state.username}
+              />
+            )}
           />
         </div>
       </Router>
