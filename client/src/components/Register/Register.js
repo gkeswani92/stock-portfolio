@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import FormFile from "react-bootstrap/FormFile";
+import InputGroup from "react-bootstrap/InputGroup";
 import "./Register.css";
 
-
 const REGISTER_4XX_ERRORS_TO_USER_MESSAES = {
-  'USER_ALREADY_EXISTS': "Failed to register because username is already taken",
-  'UNSUPPORTED_CONTENT_TYPE': "Failed to register because profile picture format is unsupported",
+  USER_ALREADY_EXISTS: "Failed to register because username is already taken",
+  UNSUPPORTED_CONTENT_TYPE:
+    "Failed to register because profile picture format is unsupported",
 };
-
 
 export default class Register extends Component {
   constructor() {
@@ -44,32 +48,28 @@ export default class Register extends Component {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('first_name', this.state.first_name);
-    formData.append('last_name', this.state.last_name);
-    formData.append('username', this.state.username);
-    formData.append('password', this.state.password);
-    formData.append('profile_picture', this.state.profilePicture);
+    formData.append("first_name", this.state.first_name);
+    formData.append("last_name", this.state.last_name);
+    formData.append("username", this.state.username);
+    formData.append("password", this.state.password);
+    formData.append("profile_picture", this.state.profilePicture);
 
-    axios.post(
-      '/auth/register',
-      formData,
-    )
-    .then((response) => {
+    axios
+      .post("/auth/register", formData)
+      .then((response) => {
         console.log("Successfully registered " + this.state.first_name);
-    })
-    .catch((error) => {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx and the error message was that
-      // the user already exists
-      if (
-        error.response &&
-        error.response.status === 400
-      ) {
-        this.setState({
-          error: REGISTER_4XX_ERRORS_TO_USER_MESSAES[error.response.data.message],
-        });
-      }
-    });
+      })
+      .catch((error) => {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx and the error message was that
+        // the user already exists
+        if (error.response && error.response.status === 400) {
+          this.setState({
+            error:
+              REGISTER_4XX_ERRORS_TO_USER_MESSAES[error.response.data.message],
+          });
+        }
+      });
   }
 
   render() {
@@ -81,95 +81,87 @@ export default class Register extends Component {
             Track your portfolio and share recommendations with friends.
           </p>
 
-          <form onSubmit={this.onSubmit}>
+          <Form onSubmit={this.onSubmit}>
             {/* If this.state.error is true, display the error message. Remember, we need
               to enclose this statement in brackets because we are writing Javascript code
               inside JSX.
               */}
-            <div className="form-group col-auto">
+            <Form.Group>
               {this.state.error && (
-                <div className="alert alert-danger" role="alert">
-                  {this.state.error}
-                </div>
+                <Alert variant="danger">{this.state.error}</Alert>
               )}
-            </div>
+            </Form.Group>
 
-            <div className="form-row col-auto">
-              <div className="form-group col-md-6">
-                <label htmlFor="first_name" className="col-form-label-sm">
+            <Form.Row>
+              <Form.Group className="col-md-6">
+                <Form.Label htmlFor="first_name" className="col-form-label-sm">
                   First Name
                   <span className="required"> *</span>
-                </label>
-                <input
+                </Form.Label>
+                <Form.Control
                   type="text"
                   name="first_name"
                   value={this.state.first_name}
                   onChange={this.onChange}
-                  className="form-control"
                   autoFocus
                   required
                 />
-              </div>
+              </Form.Group>
 
-              <div className="form-group col-md-6">
-                <label htmlFor="last_name" className="col-form-label-sm">
+              <Form.Group className="col-md-6">
+                <Form.Label htmlFor="last_name" className="col-form-label-sm">
                   Last Name
                   <span className="required"> *</span>
-                </label>
-                <input
+                </Form.Label>
+                <Form.Control
                   type="text"
                   name="last_name"
                   value={this.state.last_name}
                   onChange={this.onChange}
-                  className="form-control"
                   required
                 />
-              </div>
-            </div>
+              </Form.Group>
+            </Form.Row>
 
-            <div className="form-group col-auto">
-              <label htmlFor="username" className="col-form-label-sm">
+            <Form.Group>
+              <Form.Label htmlFor="username" className="col-form-label-sm">
                 Username
                 <span className="required"> *</span>
-              </label>
-              <div className="input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text" id="inputGroupPrepend2">
-                    @
-                  </span>
-                </div>
-                <input
+              </Form.Label>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="inputGroupPrepend2">@</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
                   type="text"
                   name="username"
                   value={this.state.username}
                   onChange={this.onChange}
-                  className="form-control"
                   required
                 />
-              </div>
-            </div>
+              </InputGroup>
+            </Form.Group>
 
-            <div className="form-group col-auto">
-              <label htmlFor="password" className="col-form-label-sm">
+            <Form.Group>
+              <Form.Label htmlFor="password" className="col-form-label-sm">
                 Password
                 <span className="required"> *</span>
-              </label>
-              <input
+              </Form.Label>
+              <Form.Control
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.onChange}
-                className="form-control"
                 required
               />
               <small id="passwordHelpBlock" className="form-text text-muted">
                 Your password must be 8-20 characters long
               </small>
-            </div>
+            </Form.Group>
 
-            <div className="form-group col-auto">
-              <div className="custom-file">
-                <input
+            <Form.Group>
+              <FormFile className="custom-file">
+                <Form.Control
                   type="file"
                   name="profilePicture"
                   className="custom-file-input"
@@ -177,18 +169,21 @@ export default class Register extends Component {
                   onChange={this.uploadFile}
                   required
                 />
-                <label className="custom-file-label col-form-label-sm" htmlFor="profilePicture">
-                  { this.state.profilePicture.name || 'Choose Profile Picture' }
-                </label>
-              </div>
-            </div>
+                <Form.Label
+                  className="custom-file-label col-form-label-sm"
+                  htmlFor="profilePicture"
+                >
+                  {this.state.profilePicture.name || "Choose Profile Picture"}
+                </Form.Label>
+              </FormFile>
+            </Form.Group>
 
-            <div className="form-group col-auto signUpButton">
-              <button type="submit" className="btn btn-primary btn-block">
+            <Form.Group className="signUpButton">
+              <Button type="submit" className="btn-block">
                 Sign Up
-              </button>
-            </div>
-          </form>
+              </Button>
+            </Form.Group>
+          </Form>
 
           <p className="text-gray-soft text-center small mb-2">
             By clicking "Sign up" you agree to our{" "}
