@@ -58,6 +58,7 @@ export default class Register extends Component {
       .post("/auth/register", formData)
       .then((response) => {
         console.log("Successfully registered " + this.state.first_name);
+        this.props.history.push("/home");
       })
       .catch((error) => {
         // The request was made and the server responded with a status code
