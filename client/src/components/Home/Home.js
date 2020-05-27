@@ -3,7 +3,10 @@ import Feed from "../Feed/Feed";
 import FollowUsersJumbotron from "../FollowUsersJumbotron/FollowUsersJumbotron";
 import axios from "axios";
 import PropTypes from "prop-types";
-import Spinner from "react-bootstrap/Spinner"
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 
 export default class Home extends Component {
   static propTypes = {
@@ -66,22 +69,22 @@ export default class Home extends Component {
     // Show an empty page until the async call to get the feed from the backend
     // is completed.
     if (this.state.isLoading === true) {
-      return <Spinner animation="border" size="lg"/>
+      return <Spinner animation="border" size="lg" />;
     }
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-2"></div>
-          <div className="col-8">
+      <Container>
+        <Row>
+          <Col sm={2} />
+          <Col sm={8}>
             {this.state.hasFeedItems && <Feed feedItems={this.state.feed} />}
             {!this.state.hasFeedItems && (
               <FollowUsersJumbotron username={this.props.username} />
             )}
-          </div>
-          <div className="col-2"></div>
-        </div>
-      </div>
+          </Col>
+          <Col sm={2} />
+        </Row>
+      </Container>
     );
   }
 }
