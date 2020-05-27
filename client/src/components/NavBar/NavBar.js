@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar"
 import "./NavBar.css";
 
 export default class NavBar extends Component {
@@ -17,11 +18,12 @@ export default class NavBar extends Component {
   render() {
     return (
       <div>
-        <nav className="nav navbar justify-content-left navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" href="/">
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand href="/home">
             <img src="" width="30" height="30" alt="" />
             Portfolio Tracker
-          </a>
+          </Navbar.Brand>
+
           <Link to="/home" className="nav-item nav-link text-light">
             Home
           </Link>
@@ -66,7 +68,7 @@ export default class NavBar extends Component {
               Logout
             </Link>
           )}
-        </nav>
+        </Navbar>
       </div>
     );
   }

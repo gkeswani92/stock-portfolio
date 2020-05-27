@@ -3,6 +3,7 @@ import Feed from "../Feed/Feed";
 import FollowUsersJumbotron from "../FollowUsersJumbotron/FollowUsersJumbotron";
 import axios from "axios";
 import PropTypes from "prop-types";
+import Spinner from "react-bootstrap/Spinner"
 
 export default class Home extends Component {
   static propTypes = {
@@ -65,7 +66,7 @@ export default class Home extends Component {
     // Show an empty page until the async call to get the feed from the backend
     // is completed.
     if (this.state.isLoading === true) {
-      return <div />
+      return <Spinner animation="border" size="lg"/>
     }
 
     return (
