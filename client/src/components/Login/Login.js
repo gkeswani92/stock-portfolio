@@ -34,7 +34,7 @@ export default class Login extends Component {
 
     isLoginSuccessful.then((response) => {
         console.log("Login Successful for " + this.state.username);
-        this.props.history.push('/');
+        this.props.history.push('/home');
       })
       .catch((error) => {
         // The request was made and the server responded with a status code
