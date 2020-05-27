@@ -75,8 +75,13 @@ export default class App extends Component {
             isLoggedIn={this.state.isLoggedIn}
             handleLogout={this.handleLogout}
           />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+
+          {/* React router makes it possible to support client side routing.
+          These routes make sure that the correct component is rendered based
+          on the URL that is entered in the browser
+          */}
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route
             path="/home"
             render={(props) => (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Transaction from "../Transaction/Transaction";
+import Feed from "../Feed/Feed";
 import FollowUsersJumbotron from "../FollowUsersJumbotron/FollowUsersJumbotron";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -15,31 +15,26 @@ export default class Home extends Component {
     this.state = {
       feed: [],
       hasFeedItems: false,
-      userId: this.props.userId,
-      username: this.props.username,
+      isLoading: true,
     };
-  }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      userId: props.userId,
-      username: props.username,
-    });
+    this.getFeed = this.getFeed.bind(this);
   }
 
   componentWillMount() {
-    if (this.state.userId) {
+    if (this.props.userId) {
       this.getFeed();
     }
   }
 
   getFeed() {
     axios
-      .get(`/feed/${this.state.userId}`)
+      .get(`/feed/${this.props.userId}`)
       .then((response) => {
         this.setState({
           feed: response.data.transactions,
           hasFeedItems: true,
+          isLoading: false,
         });
       })
       .catch((error) => {
@@ -48,27 +43,18 @@ export default class Home extends Component {
   }
 
   render() {
+    // Show an empty page until the async call to get the feed from the backend
+    // is completed.
+    if (this.state.isLoading === true) {
+      return <div />
+    }
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-2"></div>
           <div className="col-8">
-            {this.state.hasFeedItems &&
-              this.state.feed.map((value, index) => {
-                return (
-                  <Transaction
-                    key={index}
-                    firstName={value.firstName}
-                    lastName={value.lastName}
-                    ticker={value.ticker}
-                    orderType={value.orderType}
-                    quantity={value.quantity}
-                    price={value.price}
-                    createdAt={value.createdAt}
-                  />
-                );
-              })}
-
+            {this.state.hasFeedItems && <Feed feedItems={this.state.feed} />}
             {!this.state.hasFeedItems && (
               <FollowUsersJumbotron username={this.props.username} />
             )}
