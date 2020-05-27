@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Login.css";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export default class Login extends Component {
   constructor() {
@@ -26,15 +29,15 @@ export default class Login extends Component {
     // of making a GET request to the backend
     event.preventDefault();
 
-    var isLoginSuccessful = axios
-      .post("/auth/login", {
-        username: this.state.username,
-        password: this.state.password,
-      });
+    var isLoginSuccessful = axios.post("/auth/login", {
+      username: this.state.username,
+      password: this.state.password,
+    });
 
-    isLoginSuccessful.then((response) => {
+    isLoginSuccessful
+      .then((response) => {
         console.log("Login Successful for " + this.state.username);
-        this.props.history.push('/home');
+        this.props.history.push("/home");
       })
       .catch((error) => {
         // The request was made and the server responded with a status code
@@ -46,9 +49,9 @@ export default class Login extends Component {
           error.response.data.message === "INVALID_CREDENTIALS"
         ) {
           this.setState({
-            error: 'Invalid credentials. Please try again.',
+            error: "Invalid credentials. Please try again.",
           });
-          return false
+          return false;
         }
       });
   }
@@ -59,53 +62,46 @@ export default class Login extends Component {
         <div className="container container-xs">
           <h3 className="mb-3 text-center">Please sign in</h3>
 
-          <form onSubmit={this.onSubmit} className="form-signin">
-
-            {
-              /* If this.state.error is true, display the error message. Remember, we need
+          <Form onSubmit={this.onSubmit} className="form-signin">
+            {/* If this.state.error is true, display the error message. Remember, we need
               to enclose this statement in brackets because we are writing Javascript code
               inside JSX.
-              */
-            }
-            <div className="form-group col-auto">
+              */}
+            <Form.Group>
               {this.state.error && (
-                <div className="alert alert-danger" role="alert">
-                  {this.state.error}
-                </div>
+                <Alert variant="danger">{this.state.error}</Alert>
               )}
-            </div>
+            </Form.Group>
 
-            <div className="form-group col-auto">
-                <input
-                  type="text"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                  className="form-control"
-                  placeholder="Username"
-                  autoFocus
-                  required
-                />
-            </div>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChange}
+                placeholder="Username"
+                autoFocus
+                required
+              />
+            </Form.Group>
 
-            <div className="form-group col-auto">
-              <input
+            <Form.Group>
+              <Form.Control
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.onChange}
-                className="form-control"
                 placeholder="Password"
                 required
               />
-            </div>
+            </Form.Group>
 
-            <div className="form-group col-auto signInButton">
-              <button type="submit" className="btn btn-primary btn-block">
+            <Form.Group className="signInButton">
+              <Button variant="primary" type="submit" className="btn-block">
                 Sign in
-              </button>
-            </div>
-          </form>
+              </Button>
+            </Form.Group>
+          </Form>
         </div>
       </div>
     );
