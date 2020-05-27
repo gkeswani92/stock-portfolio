@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
 export default class AddTransaction extends Component {
   constructor(props) {
@@ -47,60 +48,63 @@ export default class AddTransaction extends Component {
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.onSubmit} className="form-signin">
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="ticker"
-              value={this.state.ticker}
-              onChange={this.onChange}
-              placeholder="Ticker"
-              autoFocus
-              required
-            />
-          </Form.Group>
+      <Modal.Dialog centered>
+        <Modal.Header closeButton>Add a Transaction</Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={this.onSubmit} className="form-signin">
+            <Form.Group>
+              <Form.Control
+                type="text"
+                name="ticker"
+                value={this.state.ticker}
+                onChange={this.onChange}
+                placeholder="Ticker"
+                autoFocus
+                required
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="orderType"
-              value={this.state.orderType}
-              onChange={this.onChange}
-              placeholder="Buy or Sell"
-              required
-            />
-          </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                name="orderType"
+                value={this.state.orderType}
+                onChange={this.onChange}
+                placeholder="Buy or Sell"
+                required
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="price"
-              value={this.state.price}
-              onChange={this.onChange}
-              placeholder="Price"
-              required
-            />
-          </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                name="price"
+                value={this.state.price}
+                onChange={this.onChange}
+                placeholder="Price"
+                required
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="quantity"
-              value={this.state.quantity}
-              onChange={this.onChange}
-              placeholder="Quantity"
-              required
-            />
-          </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                name="quantity"
+                value={this.state.quantity}
+                onChange={this.onChange}
+                placeholder="Quantity"
+                required
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Button variant="primary" type="submit" className="btn-block">
-              Submit Transaction
-            </Button>
-          </Form.Group>
-        </Form>
-      </div>
+            <Form.Group>
+              <Button variant="primary" type="submit" className="btn-block">
+                Submit Transaction
+              </Button>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+      </Modal.Dialog>
     );
   }
 }
