@@ -28,7 +28,7 @@ def add_transaction_by_user(user_id: int):
 
     if not all([ticker, price, quantity]):
         response = jsonify({
-            'message': 'Please enter the ticket, price and quantity',
+            'message': 'Please enter the ticker, price, order_type and quantity',
         })
         response.status_code = 400
         return response

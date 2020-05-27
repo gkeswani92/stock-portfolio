@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
+import AddTransaction from "../AddTransaction/AddTransaction";
 import NavBar from "../NavBar/NavBar";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
@@ -82,6 +83,7 @@ export default class App extends Component {
           */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/addTransaction" component={AddTransaction} />
           <Route
             path="/home"
             render={(props) => (

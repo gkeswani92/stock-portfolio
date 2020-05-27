@@ -50,6 +50,15 @@ export default class NavBar extends Component {
           */}
           {this.props.isLoggedIn && (
             <Link
+              to="/addTransaction"
+              className="nav-item nav-link text-light"
+            >
+              Add Transaction
+            </Link>
+          )}
+
+          {this.props.isLoggedIn && (
+            <Link
               to="/logout"
               className="nav-item nav-link text-light"
               onClick={() => this.onLogoutClick()}
