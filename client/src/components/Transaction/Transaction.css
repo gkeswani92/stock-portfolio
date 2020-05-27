@@ -4,14 +4,14 @@
     height: 7rem;
 }
 
-.card-text {
-    margin-top: 0.1rem;
-}
-
 .buy-alert {
     color: green;
 }
 
 .sell-alert {
     color: red;
+}
+
+.feed-content {
+    margin: 1rem;
 }
