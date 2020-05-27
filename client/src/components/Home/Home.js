@@ -49,9 +49,10 @@ export default class Home extends Component {
     axios
       .get(`/feed/${this.props.userId}`)
       .then((response) => {
+        let transactions = response.data.transactions;
         this.setState({
-          feed: response.data.transactions,
-          hasFeedItems: true,
+          feed: transactions,
+          hasFeedItems: transactions.length !== 0 ? true : false,
           isLoading: false,
         });
       })
