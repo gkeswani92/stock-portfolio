@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export default class AddTransaction extends Component {
   constructor(props) {
@@ -46,62 +48,58 @@ export default class AddTransaction extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="form-signin">
-          <div className="form-group col-auto">
-            <input
+        <Form onSubmit={this.onSubmit} className="form-signin">
+          <Form.Group>
+            <Form.Control
               type="text"
               name="ticker"
               value={this.state.ticker}
               onChange={this.onChange}
-              className="form-control"
               placeholder="Ticker"
               autoFocus
               required
             />
-          </div>
+          </Form.Group>
 
-          <div className="form-group col-auto">
-            <input
+          <Form.Group>
+            <Form.Control
               type="text"
               name="orderType"
               value={this.state.orderType}
               onChange={this.onChange}
-              className="form-control"
               placeholder="Buy or Sell"
               required
             />
-          </div>
+          </Form.Group>
 
-          <div className="form-group col-auto">
-            <input
+          <Form.Group>
+            <Form.Control
               type="text"
               name="price"
               value={this.state.price}
               onChange={this.onChange}
-              className="form-control"
               placeholder="Price"
               required
             />
-          </div>
+          </Form.Group>
 
-          <div className="form-group col-auto">
-            <input
+          <Form.Group>
+            <Form.Control
               type="text"
               name="quantity"
               value={this.state.quantity}
               onChange={this.onChange}
-              className="form-control"
               placeholder="Quantity"
               required
             />
-          </div>
+          </Form.Group>
 
-          <div className="form-group col-auto">
-            <button type="submit" className="btn btn-primary btn-block">
+          <Form.Group>
+            <Button variant="primary" type="submit" className="btn-block">
               Submit Transaction
-            </button>
-          </div>
-        </form>
+            </Button>
+          </Form.Group>
+        </Form>
       </div>
     );
   }
