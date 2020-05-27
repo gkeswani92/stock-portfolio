@@ -8,6 +8,7 @@ export default class Home extends Component {
   static propTypes = {
     userId: PropTypes.number,
     username: PropTypes.string,
+    checkLoginStatus: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -16,13 +17,30 @@ export default class Home extends Component {
       feed: [],
       hasFeedItems: false,
       isLoading: true,
+      userId: props.userId,
+      username: props.username,
     };
 
     this.getFeed = this.getFeed.bind(this);
   }
 
+  // Note: `componentWillMount` will only be called once when the component is
+  // being mounted and will not be called on subsequent refreshes.
   componentWillMount() {
+    // If a user id has been passed in, get the feed for the user. Else, check
+    // if there is a user logged in coz someone can come directly to the /home
+    // route
     if (this.props.userId) {
+      this.getFeed();
+    } else {
+      this.props.checkLoginStatus();
+    }
+  }
+
+  componentDidUpdate() {
+    // If the component is updated and isLoading = true i.e. we don't have feed
+    // items, we will get the feed
+    if (this.state.isLoading === true) {
       this.getFeed();
     }
   }

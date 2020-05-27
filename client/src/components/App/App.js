@@ -88,6 +88,7 @@ export default class App extends Component {
               <Home
                 userId={this.state.userId}
                 username={this.state.username}
+                checkLoginStatus={this.checkLoginStatus}
               />
             )}
           />
