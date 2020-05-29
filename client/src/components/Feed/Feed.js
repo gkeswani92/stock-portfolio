@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Transaction from "../Transaction/Transaction";
+import FeedCard from "../FeedCard/FeedCard";
 
 export default class Feed extends Component {
   render() {
@@ -7,7 +7,7 @@ export default class Feed extends Component {
       <div>
         {this.props.feedItems.map((value, index) => {
           return (
-            <Transaction
+            <FeedCard
               key={index}
               firstName={value.firstName}
               lastName={value.lastName}
