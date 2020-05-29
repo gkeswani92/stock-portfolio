@@ -1,25 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+
 import FeedCard from "../FeedCard/FeedCard";
 
-export default class Feed extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.feedItems.map((value, index) => {
-          return (
-            <FeedCard
-              key={index}
-              firstName={value.firstName}
-              lastName={value.lastName}
-              ticker={value.ticker}
-              orderType={value.orderType}
-              quantity={value.quantity}
-              price={value.price}
-              createdAt={value.createdAt}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+const Feed = (props) => {
+  return (
+    <div>
+      {props.feedItems.map((feedItem, index) => {
+        return <FeedCard key={index} {...feedItem} />;
+      })}
+    </div>
+  );
+};
+
+Feed.propTypes = {
+  feedItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      ticker: PropTypes.string.isRequired,
+      orderType: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
+export default Feed;
