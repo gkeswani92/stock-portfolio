@@ -49,20 +49,13 @@ export default class Home extends Component {
     }
   }
 
-  getFeed() {
-    axios
-      .get(`/feed/${this.props.userId}`)
-      .then((response) => {
-        let transactions = response.data.transactions;
-        this.setState({
-          feed: transactions,
-          hasFeedItems: transactions.length !== 0 ? true : false,
-          isLoading: false,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async getFeed() {
+    const feed = await axios.get(`/feed/${this.props.userId}`);
+    this.setState({
+      feed: feed.data.transactions,
+      hasFeedItems: feed.data.transactions.length !== 0 ? true : false,
+      isLoading: false,
+    });
   }
 
   render() {
