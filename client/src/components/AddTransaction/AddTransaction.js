@@ -5,27 +5,20 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 export default class AddTransaction extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ticker: "",
-      orderType: "",
-      price: "",
-      quantity: "",
-    };
+  state = {
+    ticker: "",
+    orderType: "",
+    price: "",
+    quantity: "",
+  };
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onChange(event) {
+  onChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
-  onSubmit(event) {
-    console.log(this.state);
+  onSubmit = (event) => {
     // We are using preventDefault so as to block the default browser action
     // of making a GET request to the backend
     event.preventDefault();
@@ -44,7 +37,7 @@ export default class AddTransaction extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   render() {
     return (

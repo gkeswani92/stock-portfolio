@@ -24,25 +24,21 @@ export default class Register extends Component {
       profilePicture: "",
       error: "",
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.uploadFile = this.uploadFile.bind(this);
   }
 
-  uploadFile(event) {
+  uploadFile = (event) => {
     this.setState({
       profilePicture: event.target.files[0],
     });
-  }
+  };
 
-  onChange(event) {
+  onChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     // We are using preventDefault so as to block the default browser action
     // of making a GET request to the backend
     event.preventDefault();
@@ -71,7 +67,7 @@ export default class Register extends Component {
           });
         }
       });
-  }
+  };
 
   render() {
     return (

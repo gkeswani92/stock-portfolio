@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Navbar from "react-bootstrap/Navbar"
+import Navbar from "react-bootstrap/Navbar";
 import "./NavBar.css";
 
 export default class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.onLogoutClick = this.onLogoutClick.bind(this);
-  }
-
-  onLogoutClick() {
-    console.log('Logout button clicked');
+  onLogoutClick = () => {
+    console.log("Logout button clicked");
     this.props.handleLogout();
-  }
+  };
 
   render() {
     return (
@@ -51,10 +46,7 @@ export default class NavBar extends Component {
           logged in
           */}
           {this.props.isLoggedIn && (
-            <Link
-              to="/addTransaction"
-              className="nav-item nav-link text-light"
-            >
+            <Link to="/addTransaction" className="nav-item nav-link text-light">
               Add Transaction
             </Link>
           )}
@@ -74,11 +66,10 @@ export default class NavBar extends Component {
   }
 }
 
-
 // PropTypes is one way of adding type checking to JavaScript. Other
 // competing projects are TypeScript from Microsoft and Flow from Facebook
 // They are superior to prop types because they allow us to detect problems
 // at compile time
 NavBar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-}
+};

@@ -24,8 +24,6 @@ export default class Home extends Component {
       userId: props.userId,
       username: props.username,
     };
-
-    this.getFeed = this.getFeed.bind(this);
   }
 
   // Note: `componentWillMount` will only be called once when the component is
@@ -49,14 +47,14 @@ export default class Home extends Component {
     }
   }
 
-  async getFeed() {
+  getFeed = async () => {
     const feed = await axios.get(`/feed/${this.props.userId}`);
     this.setState({
       feed: feed.data.transactions,
       hasFeedItems: feed.data.transactions.length !== 0 ? true : false,
       isLoading: false,
     });
-  }
+  };
 
   render() {
     // Show an empty page until the async call to get the feed from the backend

@@ -16,16 +16,13 @@ export default class App extends Component {
       userId: NaN,
       username: "",
     };
-
-    this.checkLoginStatus = this.checkLoginStatus.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentWillMount() {
     this.checkLoginStatus();
   }
 
-  checkLoginStatus() {
+  checkLoginStatus = () => {
     axios
       .get("/auth/is_logged_in")
       .then((response) => {
@@ -48,9 +45,9 @@ export default class App extends Component {
       .catch((error) => {
         console.log("Error encountered while checking if user is logged in");
       });
-  }
+  };
 
-  handleLogout() {
+  handleLogout = () => {
     axios
       .post("/auth/logout")
       .then((response) => {
@@ -66,7 +63,7 @@ export default class App extends Component {
       .catch((error) => {
         console.log("Error encountered while logging out the user");
       });
-  }
+  };
 
   render() {
     return (
