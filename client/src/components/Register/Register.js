@@ -14,17 +14,14 @@ const REGISTER_4XX_ERRORS_TO_USER_MESSAES = {
 };
 
 export default class Register extends Component {
-  constructor() {
-    super();
-    this.state = {
-      first_name: "",
-      last_name: "",
-      username: "",
-      password: "",
-      profilePicture: "",
-      error: "",
-    };
-  }
+  state = {
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: "",
+    profilePicture: "",
+    error: "",
+  };
 
   uploadFile = (event) => {
     this.setState({

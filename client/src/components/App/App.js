@@ -9,14 +9,11 @@ import Home from "../Home/Home";
 import "./App.css";
 
 export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: false,
-      userId: NaN,
-      username: "",
-    };
-  }
+  state = {
+    isLoggedIn: false,
+    userId: NaN,
+    username: "",
+  };
 
   componentWillMount() {
     this.checkLoginStatus();

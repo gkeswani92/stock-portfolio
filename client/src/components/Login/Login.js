@@ -6,14 +6,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      password: "",
-      error: "",
-    };
-  }
+  state = {
+    username: "",
+    password: "",
+    error: "",
+  };
 
   onChange = (event) => {
     this.setState({
