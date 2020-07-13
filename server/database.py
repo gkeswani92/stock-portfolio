@@ -7,7 +7,16 @@ from sqlalchemy.ext.declarative import declarative_base
 from server.config import load_private_configs
 
 
-db_credentials = load_private_configs()['database']
+db_credentials = None
+try:
+    db_credentials = load_private_configs()["database"]
+except FileNotFoundError:
+    db_credentials = {
+        "username": "root",
+        "password": "password",
+        "db_name": "stock_portfolio",
+        "host": "localhost",
+    }
 
 
 # SQLAlchemy is an ORM (Object Relational Mapping)
@@ -29,11 +38,11 @@ db_credentials = load_private_configs()['database']
 # 1) SQLLite: sqllite:///<database_name.db>
 # 2) MySQL: mysql+mysqlconnector://root:<password>@localhost:3306/db_name
 engine = create_engine(
-    'mysql+mysqlconnector://{username}:{password}@{host}:3306/{db}'.format(
-        username=db_credentials['username'],
-        password=db_credentials['password'],
-        db=db_credentials['db_name'],
-        host=db_credentials['host'],
+    "mysql+mysqlconnector://{username}:{password}@{host}:3306/{db}".format(
+        username=db_credentials["username"],
+        password=db_credentials["password"],
+        db=db_credentials["db_name"],
+        host=db_credentials["host"],
     ),
     convert_unicode=True,
 )
@@ -46,11 +55,7 @@ engine = create_engine(
 # and the database
 # Note: It is the entry point for all queries
 db_session = scoped_session(
-    sessionmaker(
-        autocommit=False,
-        autoflush=False,
-        bind=engine,
-    ),
+    sessionmaker(autocommit=False, autoflush=False, bind=engine,),
 )
 
 # This is the base class for all declarative class definitions. Every time
