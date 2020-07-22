@@ -1,0 +1,68 @@
+#hero {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 140px 0 100px 0;
+  margin-bottom: -75px;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  right: -100%;
+  top: 20%;
+  width: 250%;
+  height: 200%;
+  z-index: -1;
+  background-color: #e8ecf5;
+  transform: skewY(135deg);
+}
+
+#hero h1 {
+  margin: 0 0 40px 0;
+  color: #3a3a3a;
+  font-family: "Helvetica Neue";
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 56px;
+  letter-spacing: 0.1px;
+}
+
+#hero h2 {
+  color: #425466;
+  margin-bottom: 50px;
+  font-size: 18px;
+  font-family: "Helvetica Neue";
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+#hero .download-btn {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  display: inline-block;
+  padding: 8px 16px 10px 16px;
+  transition: 0.5s;
+  background-color: #0a2540;
+  color: #fff;
+  position: relative;
+  margin: 5px;
+  border-radius: 16.5px;
+}
+
+#hero .download-btn:hover {
+  background: #5777ba;
+}
+
+#hero .download-btn i {
+  font-size: 20px;
+  position: absolute;
+  left: 18px;
+  top: 8.5px;
+}
+
+
+#hero-h1 {
+    color:
+}
