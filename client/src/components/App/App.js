@@ -4,6 +4,7 @@ import axios from "axios";
 import AddTransaction from "../AddTransaction/AddTransaction";
 import NavBar from "../NavBar/NavBar";
 import Register from "../Register/Register";
+import LandingPage from "../LandingPage/LandingPage";
 import Login from "../Login/Login";
 import Home from "../Home/Home";
 import "./App.css";
@@ -75,6 +76,7 @@ export default class App extends Component {
           These routes make sure that the correct component is rendered based
           on the URL that is entered in the browser
           */}
+          <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/addTransaction" component={AddTransaction} />

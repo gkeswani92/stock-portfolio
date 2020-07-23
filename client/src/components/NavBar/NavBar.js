@@ -34,7 +34,7 @@ const NavBar = (props) => {
   return (
     <div>
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/home">
+        <Navbar.Brand href="/">
           <img src="" width="30" height="30" alt="" />
           Portfolio Tracker
         </Navbar.Brand>
