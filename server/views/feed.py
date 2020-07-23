@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 from server.data_access.follows import get_followees_by_user_id
-from server.data_access.transaction import get_transactions_by_user_ids
+from server.data_access.equity_order import get_equity_orders_by_user_ids
 from server.data_access.user import get_user_info_by_user_ids
 from server.constants import OrderType
 
@@ -25,7 +25,7 @@ def get_feed_for_user(user_id: int):
     user_id_to_user_info = {user.id: user for user in user_info}
 
     # Get the transactions for the list of followers and format the response
-    transactions = get_transactions_by_user_ids(followee_ids)
+    transactions = get_equity_orders_by_user_ids(followee_ids)
     sorted_transactions = sorted(
         transactions, key=lambda x: x.created_at, reverse=True,
     )
@@ -56,13 +56,9 @@ def get_feed_for_user(user_id: int):
         "transactions": [
             {
                 "user_id": transaction.user_id,
-                "firstName": user_id_to_user_info[
-                    transaction.user_id
-                ].first_name,
-                "lastName": user_id_to_user_info[
-                    transaction.user_id
-                ].last_name,
-                "ticker": transaction.ticker,
+                "firstName": user_id_to_user_info[transaction.user_id].first_name,
+                "lastName": user_id_to_user_info[transaction.user_id].last_name,
+                "ticker": transaction.ticker_id,
                 "orderType": OrderType(int(transaction.order_type)).name,
                 "price": transaction.price,
                 "quantity": transaction.quantity,

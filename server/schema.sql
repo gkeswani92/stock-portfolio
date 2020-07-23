@@ -17,3 +17,18 @@ CREATE TABLE ticker (
     CONSTRAINT unique_ticker_exchange UNIQUE(exchange_id, ticker),
     FOREIGN KEY (exchange_id) REFERENCES stock_exchange(id)
 );
+
+
+CREATE TABLE equity_order (
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    ticker_id INT NOT NULL,
+    order_type VARCHAR(6) NOT NULL,
+    quantity FLOAT NOT NULL,
+    price FLOAT NOT NULL,
+    created_at INT NOT NULL,
+    PRIMARY KEY (id),
+    INDEX (user_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (ticker_id) REFERENCES ticker(id)
+);
