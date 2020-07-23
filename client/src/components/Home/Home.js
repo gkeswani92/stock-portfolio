@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import Feed from "../Feed/Feed";
-import FollowUsersJumbotron from "../FollowUsersJumbotron/FollowUsersJumbotron";
+import FollowUsersPrompt from "../FollowUsersPrompt/FollowUsersPrompt";
 import axios from "axios";
 import PropTypes from "prop-types";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 
 export default class Home extends Component {
@@ -64,18 +61,12 @@ export default class Home extends Component {
     }
 
     return (
-      <Container>
-        <Row>
-          <Col sm={2} />
-          <Col sm={8}>
-            {this.state.hasFeedItems && <Feed feedItems={this.state.feed} />}
-            {!this.state.hasFeedItems && (
-              <FollowUsersJumbotron username={this.props.username} />
-            )}
-          </Col>
-          <Col sm={2} />
-        </Row>
-      </Container>
+      <div>
+        {this.state.hasFeedItems && <Feed feedItems={this.state.feed} />}
+        {!this.state.hasFeedItems && (
+          <FollowUsersPrompt username={this.props.username} />
+        )}
+      </div>
     );
   }
 }
