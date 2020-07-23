@@ -2,6 +2,8 @@ from sqlalchemy import Column
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
 from sqlalchemy import String
+from sqlalchemy.orm import relationship
+
 from server.database import Base
 
 
@@ -21,6 +23,8 @@ class Ticker(Base):
     )
     ticker = Column(String, nullable=False)
     company_name = Column(String, nullable=False)
+
+    exchange = relationship("StockExchange", backref="ticker")
 
     def __init__(
         self, exchange_id: int, ticker: str, company_name: str,
