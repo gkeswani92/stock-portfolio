@@ -1,26 +1,8 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS stock_exchange;
 
-CREATE TABLE user (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  first_name TEXT NOT NULL,
-  last_name TEXT NOT NULL,
-  username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
-);
-
-CREATE TABLE follows (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  follower INTEGER NOT NULL,
-  followee INTEGER NOT NULL,
-  PRIMARY KEY (follower, followee)
-);
-
-CREATE TABLE transaction (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER NOT NULL,
-  ticker TEXT NOT NULL,
-  quantity REAL NOT NULL,
-  price REAL NOT NULL,
-  created_at NUMERIC NOT NULL,
+CREATE TABLE stock_exchange (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(64) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT unique_exchange UNIQUE(name)
 );
