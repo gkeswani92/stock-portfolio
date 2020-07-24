@@ -4,6 +4,8 @@ from server.data_access.follows import get_followees_by_user_id
 from server.data_access.equity_order import get_equity_orders_by_user_ids
 from server.data_access.user import get_user_info_by_user_ids
 from server.constants import OrderType
+from server.util.logo import get_logo_url_for_company
+from server.util.time import get_time_since_post
 
 
 # Defining a blue print for all URLs that begin with /.
@@ -58,11 +60,12 @@ def get_feed_for_user(user_id: int):
                 "user_id": transaction.user_id,
                 "firstName": user_id_to_user_info[transaction.user_id].first_name,
                 "lastName": user_id_to_user_info[transaction.user_id].last_name,
-                "ticker": transaction.ticker_id,
+                "ticker": transaction.ticker.ticker,
+                "tickerLogo": get_logo_url_for_company(transaction.ticker.company_name),
                 "orderType": OrderType(int(transaction.order_type)).name,
                 "price": transaction.price,
                 "quantity": transaction.quantity,
-                "createdAt": transaction.created_at,
+                "createdAt": get_time_since_post(transaction.created_at),
             }
             for transaction in sorted_transactions[:PAGINATION_SIZE]
         ],

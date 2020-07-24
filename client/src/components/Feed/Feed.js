@@ -19,6 +19,7 @@ Feed.propTypes = {
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
       ticker: PropTypes.string.isRequired,
+      tickerLogo: PropTypes.string.isRequired,
       orderType: PropTypes.string.isRequired,
       quantity: PropTypes.number.isRequired,
       price: PropTypes.number.isRequired,
