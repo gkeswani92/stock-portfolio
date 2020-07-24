@@ -8,7 +8,7 @@ const FeedCard = (props) => {
   return (
     <Media>
       <img
-        src={"ticker/" + props.ticker + ".png"}
+        src={props.tickerLogo}
         className="img-fluid ticker-image"
         alt={props.ticker}
       />
