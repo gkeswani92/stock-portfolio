@@ -1,17 +1,75 @@
+.posts-section {
+  float: left;
+  width: 100%;
+}
+
+.post-bar {
+  float: left;
+  width: 100%;
+  background-color: #fff;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 20px;
+  padding: 5px;
+  box-shadow: 0px 2px #e4e4e4;
+}
+
+.post_topbar {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+.usy-dt {
+  float: left;
+}
+
+.usy-dt img {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  -ms-border-radius: 100px;
+  -o-border-radius: 100px;
+  border-radius: 100px;
+  margin-top: 2px;
+  width: 5rem;
+  height: 4rem;
+}
+
+.usy-name {
+  float: left;
+  margin-left: 15px;
+}
+
+.usy-name h3 {
+  color: #000000;
+  font-size: 18px;
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 2px;
+}
+.usy-name span {
+  color: #b2b2b2;
+  font-size: 14px;
+}
+.usy-name img {
+  margin-top: 0px;
+  margin-right: 6px;
+  width: 1rem;
+  height: 1rem;
+}
+
 .ticker-image {
-    margin: 1rem;
-    width: 7rem;
-    height: 7rem;
+  margin: 1rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 .buy-alert {
-    color: green;
+  color: green;
 }
 
 .sell-alert {
-    color: red;
-}
-
-.feed-content {
-    margin: 1rem;
+  color: red;
 }

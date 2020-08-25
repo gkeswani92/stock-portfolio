@@ -1,15 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import "./Feed.css";
 
 import FeedCard from "../FeedCard/FeedCard";
 
 const Feed = (props) => {
   return (
-    <div>
-      {props.feedItems.map((feedItem, index) => {
-        return <FeedCard key={index} {...feedItem} />;
-      })}
-    </div>
+    <Container className="feed-page">
+      <Row>
+        <Col md={2} lg={3} />
+        <Col md={8} lg={6}>
+          <div>
+            {props.feedItems.map((feedItem, index) => {
+              return <FeedCard key={index} {...feedItem} />;
+            })}
+          </div>
+        </Col>
+        <Col md={2} lg={3} />
+      </Row>
+    </Container>
   );
 };
 
